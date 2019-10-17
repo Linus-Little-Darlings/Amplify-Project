@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Amplify</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+  <!--link rel="icon" type="image/x-icon" href="favicon.ico"-->
+</head>
+<body ng-app="amplify">
+	<div ng-controller="TitleController">
+  	<h1>Angular Test</h1>
+  	<p>The time is {{time}}</p>
+  </div>
+  <script>
+  	angular.module('amplify', [])
+  	.controller('TitleController', function($scope){
+  		$scope.time = new Date().getTime()
+  	})
+  </script>
+</body>
+</html>
