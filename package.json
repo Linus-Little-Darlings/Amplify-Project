@@ -1,0 +1,22 @@
+{
+  "name": "amplify",
+  "version": "1.0.0",
+  "description": "spotify companion application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Linus-Little-Darlings/Amplify-Project.git"
+  },
+  "author": "Jake, Parker, Zora, Ella, Paul, Max",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Linus-Little-Darlings/Amplify-Project/issues"
+  },
+  "homepage": "https://github.com/Linus-Little-Darlings/Amplify-Project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
