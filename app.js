@@ -51,6 +51,10 @@ app.get('/login', function(req, res) {
     }));
 });
 
+app.get('/home', function(req, res) => {
+  res.sendfile('/src/views/home.html')
+})
+
 app.get('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
@@ -135,7 +139,7 @@ app.get('/refresh_token', function(req, res) {
       });
     }
   });
-});*/
+});
 
 console.log('Listening on 3000');
 app.listen(3000);
