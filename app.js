@@ -51,8 +51,9 @@ app.get('/login', function(req, res) {
     }));
 });
 
-app.get('/home', function(req, res) => {
-  res.sendfile('/src/views/home.html')
+app.get('/home', function(req, res) {
+  //res.redirect('/testtest')
+  res.sendfile('./src/views/home.html')
 })
 
 app.get('/callback', function(req, res) {
