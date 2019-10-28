@@ -1,0 +1,17 @@
+<html>
+<head>
+	<title>API Test</title>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<h1>API Test</h1>
+	<p id="test"></p>
+	<script>
+		var test = document.getElementById('test')
+		test.innerHTML = 'hello'
+		axios.get('/testdata').then(response => {
+			test.innerHTML = response.data.msg;
+		})
+	</script>
+</body>
+</html>
