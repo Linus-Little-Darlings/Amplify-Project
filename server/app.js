@@ -48,8 +48,7 @@ app.get('/login', function(req, res) {
       response_type: 'code',
       client_id: process.env.CLIENT_ID,
       scope: scope,
-      redirect_uri: 'http://ec2-34-207-132-210.compute-1.amazonaws.com:3000/callback',
-      //redirect_uri: process.env.REDIRECT_URI,
+      redirect_uri: process.env.REDIRECT_URI,
       state: state
     }));
 });
