@@ -5,12 +5,36 @@
 </head>
 <body>
 	<h1>API Test</h1>
-	<p id="test"></p>
+	<p id="test1"></p>
+	<p id="test2"></p>
 	<script>
-		var test = document.getElementById('test')
+		var test = document.getElementById('test1')
+		var test2 = document.getElementById('test2')
 		test.innerHTML = 'hello'
-		axios.get('/testdata').then(response => {
-			test.innerHTML = response.data.msg;
+		axios.get('/top-artists').then(response => {
+			console.log(response)
+			var artists = '';
+			var count = 1;
+			response.data.items.forEach(artist => {
+				artists += count + ': ' + artist.name;
+				artists += ' Genre: ' + artist.genres[0];
+				artists += '</br>';
+				count++;
+			})
+			test.innerHTML = artists;
+		})
+
+		axios.get('/top-tracks').then(response => {
+			console.log(response)
+			var tracks = '';
+			var count = 1;
+			response.data.items.forEach(track => {
+				tracks += count + ': ' + track.name;
+				tracks += ' Album: ' + track.album.name;
+				tracks += '</br>';
+				count++;
+			})
+			test2.innerHTML = tracks;
 		})
 	</script>
 </body>
