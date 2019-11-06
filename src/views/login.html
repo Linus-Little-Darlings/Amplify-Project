@@ -59,12 +59,12 @@
   </div>
   <div class="container float-left mw-100">
     <div class="jumbotron">
-      <form class="form-signin">
+      <form class="form-signin" action="/loginUser" method="POST">
           <h3 class="m-3"> Please enter your email and password.</h3>
       	  <label for="inputEmail" class="sr-only">Email address</label>
-      	  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      	  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
       	  <label for="inputPassword" class="sr-only">Password</label>
-      	  <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      	  <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
       	  <div class="checkbox mb-3">
         		<label>
         		  <input type="checkbox" value="remember-me"> Remember me |

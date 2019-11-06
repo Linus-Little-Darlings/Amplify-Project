@@ -3,7 +3,7 @@ require('dotenv').config()
 var User = require('../models/user')
 
 module.exports = app => {
-	app.post('/registerUser', (req, res) => {
+	app.post('/registerUser', (req, res, next) => {
 		console.log(req.body)
 		var e = req.body.emailAddress,
 	      p = req.body.passwordFirst;
@@ -27,11 +27,42 @@ module.exports = app => {
 					console.log('error adding user', err)
 					return next(err)
 				}else{
-					//req.session.userId = user._id
+					req.session.userId = user._id
 					console.log(user)
 					return res.redirect('/home')
 				}
 			})
 		}
 	})
+	app.post('/loginUser', (req, res, next) => {
+		console.log('logging in', req.body)
+		if(!req.body.email || !req.body.password){
+			var error = new Error('All fields required')
+			error.status = 400;
+			return next(error)
+		}
+
+		User.authenticate(req.body.email, req.body.password, (err, user) => {
+			if(err || !user){
+				var error = new Error('Incorrect Credentials')
+				error.status = 401
+				return next(error)
+			}else{
+				req.session.userId = user._id
+				return res.redirect('/home')
+			}
+		})
+	})
+	app.get('/logoutUser', function (req, res, next) {
+  if (req.session) {
+    // delete session object
+    req.session.destroy(function (err) {
+      if (err) {
+        return next(err);
+      } else {
+        return res.redirect('/home');
+      }
+    });
+  }
+});
 }

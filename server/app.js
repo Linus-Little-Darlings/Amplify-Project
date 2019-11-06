@@ -10,7 +10,7 @@ const session = require('express-session')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
-const loginRouter = require('./routes/login')
+const spotifyLoginRouter = require('./routes/spotifyLogin')
 const callbackRouter = require('./routes/callback')
 const refreshRouter = require('./routes/refresh')
 const metricsRouter = require('./routes/metrics')
@@ -26,23 +26,23 @@ db.once('open',function(){
 })
 app.use(express.static('./src'))
   .use(cors())
-  .use(cookieParser());
-  //.use(session({
-  // 	secret:'test secret',
-  // 	resave: true,
-  // 	saveUninitialized: false
-  //}));
+  .use(cookieParser())
+  .use(session({
+   	secret:'p38u3m4ucp98ut3m9u0c9348umc0',
+   	resave: true,
+   	saveUninitialized: false
+  }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/home', function(req, res) {
+  console.log(req.session.userId)
   res.sendFile('views/home.html', {root: 'src'})
 })
 
 app.get('/apitest', function(req, res){
   res.sendFile('views/apitest.html', {root: 'src'})
 })
-
 app.get('/testdata', function(req, res){
   res.send({msg: 'from the server'})
 })
@@ -53,7 +53,7 @@ app.get('/register', function(req, res){
   res.sendFile('views/register.html', {root: 'src'})
 })
 
-loginRouter(app)
+spotifyLoginRouter(app)
 amplifyLoginRouter(app)
 callbackRouter(app)
 refreshRouter(app)

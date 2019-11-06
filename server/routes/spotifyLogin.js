@@ -15,7 +15,7 @@ var generateRandomString = function(length) {
 module.exports = app => {
   const stateKey = 'spotify_auth_state';
 
-  app.get('/login', function(req, res) {
+  app.get('/spotifyLogin', function(req, res) {
     console.log('login called')
     const state = generateRandomString(16);
     res.cookie(stateKey, state);

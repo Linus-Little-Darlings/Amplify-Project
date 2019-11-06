@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
 var UserSchema = new mongoose.Schema({
-  /*email: {
+  email: {
     type: String,
     unique: true,
     required: true,
@@ -17,12 +17,16 @@ var UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-  }*/
-  email: String,
-  username: String,
-  password: String,
+  },
+  spotifyUsername: {
+    type: String,
+    trim: true
+  },
+  spotifyPassword: {
+    type: String
+  }
 });
-/*
+
 //authenticate input against database
 UserSchema.statics.authenticate = function (email, password, callback) {
   console.log('authenicate called')
@@ -56,7 +60,7 @@ UserSchema.pre('save', function (next) {
     user.password = hash;
     next();
   })
-});*/
+});
 
 
 var User = mongoose.model('User', UserSchema);
