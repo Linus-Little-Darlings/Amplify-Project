@@ -39,6 +39,9 @@ app.get('/home', function(req, res) {
   console.log(req.session.userId)
   res.sendFile('views/home.html', {root: 'src'})
 })
+app.get('/metrics', function(req, res){
+  res.sendFile('views/metrics.html', {root: 'src'})
+})
 
 app.get('/apitest', function(req, res){
   res.sendFile('views/apitest.html', {root: 'src'})
@@ -51,6 +54,9 @@ app.get('/amplifyLogin', function(req, res){
 })
 app.get('/register', function(req, res){
   res.sendFile('views/register.html', {root: 'src'})
+})
+app.get('/getSpotifyAuthToken', function(req, res){
+  res.send(req.cookies.access_token)
 })
 
 spotifyLoginRouter(app)
