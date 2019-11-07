@@ -1,6 +1,8 @@
 const request = require('request')
 
+
 module.exports = app => {
+  var artist;
 	app.get('/top-artists', function(req, res){
 		
 		console.log('q', req.cookies)
@@ -9,12 +11,14 @@ module.exports = app => {
       headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
       json: true
     };
+    console.log(app);
 
     // use the access token to access the Spotify Web API
     request.get(options, function(error, response, body) {
       console.log('err',error)
       console.log('res',response.statusCode)
       console.log('bod',body);
+      artist = body.data.items.id;
       res.send(body)
     });
 	})
@@ -63,6 +67,24 @@ app.get('/featured-playlists', function(req, res){
       headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
       json: true
     };
+
+    // use the access token to access the Spotify Web API
+    request.get(options, function(error, response, body) {
+      console.log('err',error)
+      console.log('res',response.statusCode)
+      console.log('bod',body);
+      res.send(body)
+    });
+  })
+app.get('/recomendations', function(req, res){
+    
+    console.log('q', req.cookies)
+    var options = {
+      url: 'https://api.spotify.com/v1/recommendations?limit=1&market=US&seed_artists=' + artist,
+      headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
+      json: true
+    };
+    console.log(options);
 
     // use the access token to access the Spotify Web API
     request.get(options, function(error, response, body) {

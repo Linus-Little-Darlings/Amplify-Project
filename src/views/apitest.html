@@ -10,6 +10,7 @@
 	<p id="test3"></p>
 	<p id="test4"></p>
 	<script>
+
 		var test = document.getElementById('test1')
 		var test2 = document.getElementById('test2')
 		var test3 = document.getElementById('test3')
@@ -59,11 +60,14 @@
 			// 	plays += count + ': ' + play.item.name;
 			// 	plays += '</br>';
 			// 	count++;
-			console.log(response.data.item.name);
-			plays = response.data.item.name;
-			if(response.data == '')
+			if(response.data.item === undefined)
 			{
-				plays = 'no currently playing tracks'
+				plays = 'no currently playing tracks';
+				
+			}
+			else
+			{
+				plays = response.data.item.name;
 			}
 			test3.innerHTML = 'User played track: ' + plays;
 		})
@@ -71,12 +75,20 @@
 			console.log(response)
 			var feat = '';
 			var count = 1;
-			response.data.playlists.items.forEach(f => {
-				feat += count + ': ' + f.name;
-				feat += '</br>';
+			response.data.playlists.items.forEach(playlist => {
+				feat += count + ': ' + playlist.name;
+				// f.tracks.forEach(t => {
+				// 	console.log(t);
+				// 	});
+				feat += '</br>';	
 				count++;
 			})
 			test4.innerHTML = feat;
+		})
+		axios.get('/featured-playlists').then(response => {
+			console.log(response)
+			var rec = '';
+			var count = 1;
 		})
 	</script>
 </body>
