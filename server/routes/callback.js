@@ -51,6 +51,7 @@ module.exports = app => {
           request.get(options, function(error, response, body) {
             console.log(body);
           });
+<<<<<<< HEAD
 
           // we can also pass the token to the browser to make requests from there
           res.redirect('/#' +
@@ -58,6 +59,16 @@ module.exports = app => {
               access_token: body.access_token,
               refresh_token: body.refresh_token
             }));
+=======
+        
+          // we can also pass the token to the browser to make requests from there
+          /*res.redirect('/#' +
+            querystring.stringify({
+              access_token: body.access_token,
+              refresh_token: body.refresh_token
+            }));*/
+          res.redirect('/home')
+>>>>>>> c67e20adf232aa3170c5aceda192d9c926313998
         } else {
           res.redirect('/#' +
             querystring.stringify({

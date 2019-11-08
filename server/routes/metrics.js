@@ -40,6 +40,7 @@ module.exports = app => {
       res.send(body)
     });
 	})
+<<<<<<< HEAD
 
 app.get('/playback', function(req, res){  
     
@@ -68,6 +69,7 @@ app.get('/featured-playlists', function(req, res){
       json: true
     };
 
+<<<<<<< HEAD
     // use the access token to access the Spotify Web API
     request.get(options, function(error, response, body) {
       console.log('err',error)
@@ -94,4 +96,16 @@ app.get('/recomendations', function(req, res){
       res.send(body)
     });
   })
+=======
+//     // use the access token to access the Spotify Web API
+//     request.get(options, function(error, response, body) {
+//       console.log('err',error)
+//       console.log('res',response.statusCode)
+//       console.log('bod',body);
+//       res.send(body)
+//     });
+//   })
+=======
+>>>>>>> c67e20adf232aa3170c5aceda192d9c926313998
+>>>>>>> master
 }
