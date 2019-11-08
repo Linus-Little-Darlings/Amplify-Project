@@ -36,6 +36,7 @@ module.exports = app => {
       res.send(body)
     });
 	})
+<<<<<<< HEAD
 
 // app.get('/recommendations', function(req, res){  
     
@@ -72,4 +73,6 @@ module.exports = app => {
 //       res.send(body)
 //     });
 //   })
+=======
+>>>>>>> c67e20adf232aa3170c5aceda192d9c926313998
 }
