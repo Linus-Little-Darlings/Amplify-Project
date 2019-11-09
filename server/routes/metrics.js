@@ -4,15 +4,33 @@ const request = require('request')
 
 module.exports = app => {
   function getArtist(){
-  app.get('/top-artists', function(req, res){
-    
     console.log('q', req.cookies)
     var options = {
       url: 'https://api.spotify.com/v1/me/top/artists',
       headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
       json: true
     };
-    console.log(app);
+
+    // use the access token to access the Spotify Web API
+    request.get(options, function(error, response, body) {
+      console.log('err',error)
+      console.log('res',response.statusCode)
+      console.log('bod',body);
+      return body;
+    });
+}
+  app.get('/top-artists', function(req, res){
+    var body = getArtist();
+    res.send(body);
+  })
+  app.get('/top-tracks', function(req, res){
+    
+    console.log('q', req.cookies)
+    var options = {
+      url: 'https://api.spotify.com/v1/me/top/tracks',
+      headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
+      json: true
+    };
 
     // use the access token to access the Spotify Web API
     request.get(options, function(error, response, body) {
@@ -21,28 +39,6 @@ module.exports = app => {
       console.log('bod',body);
       res.send(body)
     });
-  })
-}
-  app.get('/top-artist', function(req, res){
-    
-    // console.log('q', req.cookies)
-    // var options = {
-    //   url: 'https://api.spotify.com/v1/me/top/artists',
-    //   headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
-    //   json: true
-    // };
-    // console.log(app);
-
-    // use the access token to access the Spotify Web API
-    // request.get(options, function(error, response, body) {
-    //   console.log('err',error)
-    //   console.log('res',response.statusCode)
-    //   console.log('bod',body);
-    //   res.send(body);
-    // });
-    var body = getArtist();
-    res.send(body);
-  })
   
   
 
