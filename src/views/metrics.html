@@ -99,6 +99,7 @@
 		var artists = document.getElementById('top-artists')
 
 		axios.get('/top-artists').then(response => {
+      console.log(response);
 			var count = 1;
 			artistHtml = ''
 			response.data.items.forEach(artist => {

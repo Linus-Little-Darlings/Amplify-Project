@@ -1,12 +1,13 @@
 const request = require('request')
 
 
+
 module.exports = app => {
-  var artist;
-	app.get('/top-artists', function(req, res){
-		
-		console.log('q', req.cookies)
-		var options = {
+  function getArtist(){
+  app.get('/top-artists', function(req, res){
+    
+    console.log('q', req.cookies)
+    var options = {
       url: 'https://api.spotify.com/v1/me/top/artists',
       headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
       json: true
@@ -18,29 +19,32 @@ module.exports = app => {
       console.log('err',error)
       console.log('res',response.statusCode)
       console.log('bod',body);
-      artist = body.data.items.id;
       res.send(body)
     });
-	})
-
-	app.get('/top-tracks', function(req, res){
-		
-		console.log('q', req.cookies)
-		var options = {
-      url: 'https://api.spotify.com/v1/me/top/tracks',
-      headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
-      json: true
-    };
+  })
+}
+  app.get('/top-artist', function(req, res){
+    
+    // console.log('q', req.cookies)
+    // var options = {
+    //   url: 'https://api.spotify.com/v1/me/top/artists',
+    //   headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
+    //   json: true
+    // };
+    // console.log(app);
 
     // use the access token to access the Spotify Web API
-    request.get(options, function(error, response, body) {
-      console.log('err',error)
-      console.log('res',response.statusCode)
-      console.log('bod',body);
-      res.send(body)
-    });
-	})
-<<<<<<< HEAD
+    // request.get(options, function(error, response, body) {
+    //   console.log('err',error)
+    //   console.log('res',response.statusCode)
+    //   console.log('bod',body);
+    //   res.send(body);
+    // });
+    var body = getArtist();
+    res.send(body);
+  })
+  
+  
 
 app.get('/playback', function(req, res){  
     
@@ -69,7 +73,6 @@ app.get('/featured-playlists', function(req, res){
       json: true
     };
 
-<<<<<<< HEAD
     // use the access token to access the Spotify Web API
     request.get(options, function(error, response, body) {
       console.log('err',error)
@@ -79,33 +82,27 @@ app.get('/featured-playlists', function(req, res){
     });
   })
 app.get('/recomendations', function(req, res){
-    
-    console.log('q', req.cookies)
-    var options = {
-      url: 'https://api.spotify.com/v1/recommendations?limit=1&market=US&seed_artists=' + artist,
-      headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
-      json: true
-    };
-    console.log(options);
-
+    var art = getArtist();
+    art = art.data.items;
+    for(var i = 0; i < 5; i++)
+    {
+      var artist = art.artist[0].id;
+      console.log('q', req.cookies)
+      var options = {
+        url: 'https://api.spotify.com/v1/recommendations?limit=1&market=US&seed_artists=' + artist,
+        headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
+        json: true
+      };
+      console.log(options);
+      request.get(options, function(error, response, body) {
+        console.log('err',error)
+        console.log('res',response.statusCode)
+        console.log('bod',body);
+        res.send(body)
+      });
+    }
     // use the access token to access the Spotify Web API
-    request.get(options, function(error, response, body) {
-      console.log('err',error)
-      console.log('res',response.statusCode)
-      console.log('bod',body);
-      res.send(body)
-    });
+    
   })
-=======
-//     // use the access token to access the Spotify Web API
-//     request.get(options, function(error, response, body) {
-//       console.log('err',error)
-//       console.log('res',response.statusCode)
-//       console.log('bod',body);
-//       res.send(body)
-//     });
-//   })
-=======
->>>>>>> c67e20adf232aa3170c5aceda192d9c926313998
->>>>>>> master
+
 }

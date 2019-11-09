@@ -6,25 +6,6 @@ require('dotenv').config()
 
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
-<<<<<<< HEAD
-
-const loginRouter = require('./routes/login')
-const callbackRouter = require('./routes/callback')
-const refreshRouter = require('./routes/refresh')
-const metricsRouter = require('./routes/metrics')
-
-var stateKey = 'spotify_auth_state';
-
-var app = express();
-
-app.use(express.static('./src'))
-   .use(cors())
-   .use(cookieParser());
-
-app.get('/home', function(req, res) {
-  res.sendFile('views/home.html', {root: 'src'})
-})
-=======
 const session = require('express-session')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
@@ -61,20 +42,10 @@ app.get('/home', function(req, res) {
 app.get('/metrics', function(req, res){
   res.sendFile('views/metrics.html', {root: 'src'})
 })
->>>>>>> c67e20adf232aa3170c5aceda192d9c926313998
 
 app.get('/apitest', function(req, res){
   res.sendFile('views/apitest.html', {root: 'src'})
 })
-<<<<<<< HEAD
-
-app.get('/testdata', function(req, res){
-  res.send({msg: 'from the server'})
-})
-
-
-loginRouter(app)
-=======
 app.get('/testdata', function(req, res){
   res.send({msg: 'from the server'})
 })
@@ -90,7 +61,6 @@ app.get('/getSpotifyAuthToken', function(req, res){
 
 spotifyLoginRouter(app)
 amplifyLoginRouter(app)
->>>>>>> c67e20adf232aa3170c5aceda192d9c926313998
 callbackRouter(app)
 refreshRouter(app)
 metricsRouter(app)
