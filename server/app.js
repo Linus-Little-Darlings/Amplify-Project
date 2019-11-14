@@ -24,6 +24,14 @@ app.get('/home', function(req, res) {
   res.sendFile('views/home.html', {root: 'src'})
 })
 
+app.get('/login', function(req, res) {
+  res.sendFile('views/login.html', {root: 'src'})
+})
+
+app.get('/register', function(req, res) {
+  res.sendFile('views/register.html', {root: 'src'})
+})
+
 app.get('/apitest', function(req, res){
   res.sendFile('views/apitest.html', {root: 'src'})
 })
