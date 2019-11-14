@@ -37,23 +37,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/home', function(req, res) {
   console.log(req.session.userId)
-  res.sendFile('views/home.html', {root: 'src'})
+  res.sendFile('views/home.html', {root: '../src'})
 })
 app.get('/metrics', function(req, res){
-  res.sendFile('views/metrics.html', {root: 'src'})
+  res.sendFile('views/metrics.html', {root: '../src'})
 })
 
 app.get('/apitest', function(req, res){
-  res.sendFile('views/apitest.html', {root: 'src'})
+  res.sendFile('views/apitest.html', {root: '../src'})
 })
 app.get('/testdata', function(req, res){
   res.send({msg: 'from the server'})
 })
 app.get('/amplifyLogin', function(req, res){
-  res.sendFile('views/login.html', {root: 'src'})
+  res.sendFile('views/login.html', {root: '../src'})
 })
 app.get('/register', function(req, res){
-  res.sendFile('views/register.html', {root: 'src'})
+  res.sendFile('views/register.html', {root: '../src'})
 })
 app.get('/getSpotifyAuthToken', function(req, res){
   res.send(req.cookies.access_token)
