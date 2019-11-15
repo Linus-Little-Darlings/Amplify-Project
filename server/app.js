@@ -49,7 +49,7 @@ app.get('/apitest', function(req, res){
 app.get('/testdata', function(req, res){
   res.send({msg: 'from the server'})
 })
-app.get('/amplifyLogin', function(req, res){
+app.get('/login', function(req, res){
   res.sendFile('views/login.html', {root: '../src'})
 })
 app.get('/register', function(req, res){
