@@ -37,5 +37,79 @@
 			test2.innerHTML = tracks;
 		})
 	</script>
+
+<!-- Start of player html and js; needs to be adapted to angular and given css -->
+	<body ng-controller="ampCtrl">
+		<div id="container">
+			<div class="playlist">
+				<h1>Playlist</h1>
+				<nav>
+					<button class="control play" ng-click="player.play()" ng-hide="player.playing">Play</button>
+					<button class="control pause" ng-click="player.pause()" ng-show="player.playing">Pause</button>
+					<button class="control prev" ng-click="player.previous()">Prev</button>
+					<button class="control next" onclick="player.next()">Next</button>
+				</nav>
+
+			</div>
+			<!-- Adjust; See if this is viable for the spotify display/queue stuff
+			<section class="library">
+				<h1>Music Library</h1>
+				<ul class="albums">
+					<li class="album current" ng-repeat="album in albums">
+						<button class="queue add" ng-click="player.playlist.add(album)"></button>
+						<span class="album-title">{{album.title}}</span>
+						<span class="artist-name">{{album.artist}}</span>
+					</li>
+				</ul>
+			</section> -->
+		</div>
+		<script>
+			var player,
+					paused = false;
+
+
+			player = {
+				playlist: playlist,
+
+				current: current,
+
+				playing: false,
+	//not sure we'll need any of the album stuff since we're just pulling data from spotify
+				play: function(track, album) {
+					axios.put('https://api.spotify.com/v1/me/player/play');
+					player.playing = true;
+					paused = false;
+				},
+
+				//will I need to include something in the javacript to change the image of the play button to a pause here?
+				//Probably...
+				pause: function() {
+					if (player.playing) {
+						axios.put('https://api.spotify.com/v1/me/player/pause');
+						player.playing = false;
+						paused = true;
+					}
+				},
+
+				//don't think this function will be needed
+				reset: function() {
+					axios.put('https://api.spotify.com/v1/me/player/pause');
+					player.playing = false;
+				},
+
+				next: function() {
+					axios.post('https://api.spotify.com/v1/me/player/next');
+					if(player.playing == false){
+						player.playing = true;
+					}
+				},
+
+				previous: function() {
+					axios.post('https://api.spotify.com/v1/me/player/previous');
+					if(player.playing == false){
+						player.playing = true;
+					}
+			};
+		</script>
 </body>
 </html>
