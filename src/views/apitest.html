@@ -9,9 +9,11 @@
   <h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
   <h2>Open your console log: <code>View > Developer > JavaScript Console</code></h2>
   <button onclick="checkPlaying()">Check</button>
+  <canvas id="audio-chart" max-width="300" max-height="200"></canvas>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   <script>
     window.onSpotifyWebPlaybackSDKReady = async () => {
       const token = await axios.get('/getSpotifyAuthToken');
@@ -59,8 +61,60 @@
     async function getFeatures(id){
       var features = await axios.get('/track-features', {params: {id: id}})
       console.log('features', features)
+      var ctx = document.getElementById('audio-chart').getContext('2d')
+      ctx.clearRect(0, 0, ctx.width, ctx.height);
+      var audioChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [
+              'acousticness', 
+              'danceability', 
+              'energy', 
+              'liveness', 
+              'speechiness', 
+              'valence'
+            ],
+            datasets: [{
+                label: '# of Votes',
+                data: [
+                  features.data.acousticness, 
+                  features.data.danceability, 
+                  features.data.energy, 
+                  features.data.liveness, 
+                  features.data.speechiness,
+                  features.data.valence
+                ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+      })
     }
-
+    
   </script>
 </body>
 </html>
