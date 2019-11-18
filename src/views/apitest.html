@@ -4,6 +4,7 @@
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
+<<<<<<< Updated upstream
 	<h1>API Test</h1>
 	<p id="test1"></p>
 	<p id="test2"></p>
@@ -37,5 +38,63 @@
 			test2.innerHTML = tracks;
 		})
 	</script>
+=======
+  <h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
+  <h2>Open your console log: <code>View > Developer > JavaScript Console</code></h2>
+  <button onclick="checkPlaying()">Check</button>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script>
+    window.onSpotifyWebPlaybackSDKReady = async () => {
+      const token = await axios.get('/getSpotifyAuthToken');
+      console.log(token)
+      const player = new Spotify.Player({
+        name: 'Web Playback SDK Quick Start Player',
+        getOAuthToken: cb => { cb(token.data); }
+      });
+
+      // Error handling
+      player.addListener('initialization_error', ({ message }) => { console.error(message); });
+      player.addListener('authentication_error', ({ message }) => { console.error(message); });
+      player.addListener('account_error', ({ message }) => { console.error(message); });
+      player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+      // Playback status updates
+      player.addListener('player_state_changed', state => { console.log(state); });
+
+      // Ready
+      player.addListener('ready', ({ device_id }) => {
+        console.log('Ready with Device ID', device_id);
+      });
+
+      // Not Ready
+      player.addListener('not_ready', ({ device_id }) => {
+        console.log('Device ID has gone offline', device_id);
+      });
+
+      // Connect to the player!
+      player.connect();
+    };
+    async function checkPlaying(){
+      console.log('check')
+      var track = await axios.get('/currently-playing')
+      console.log('track', track)
+      getAnalysis(track.data.item.id)
+      getFeatures(track.data.item.id)
+    }
+
+    async function getAnalysis(id){
+      var analysis = await axios.get('/track-analysis', {params: {id: id}})
+      console.log('analysis', analysis)
+    }
+
+    async function getFeatures(id){
+      var features = await axios.get('/track-features', {params: {id: id}})
+      console.log('features', features)
+    }
+
+  </script>
+>>>>>>> Stashed changes
 </body>
 </html>
