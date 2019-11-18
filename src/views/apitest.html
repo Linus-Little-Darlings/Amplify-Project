@@ -5,11 +5,9 @@
  	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-
-  <h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
-  <h2>Open your console log: <code>View > Developer > JavaScript Console</code></h2>
   <button onclick="checkPlaying()">Check</button>
   <canvas id="audio-chart" max-width="300" max-height="200"></canvas>
+  <canvas id="beat-canvas" max-width="50" max-height="50"></canvas>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
@@ -46,6 +44,8 @@
       player.connect();
     };
     async function checkPlaying(){
+      window.requestAnimationFrame(draw_beat)
+
       console.log('check')
       var track = await axios.get('/currently-playing')
       console.log('track', track)
@@ -115,6 +115,15 @@
       })
     }
     
+    function draw_beat(){
+      var ctx = document.getElementById('beat-canvas').getContext('2d');
+      var size = Math.sin((new Date()).getMilliseconds())
+      console.log(size)
+      ctx.clearRect(0,0,ctx.width,ctx.height)
+      ctx.fillRect(25,25,size,size)
+      window.requestAnimationFrame(draw_beat);
+    }
+
   </script>
 </body>
 </html>
