@@ -6,7 +6,7 @@
 </head>
 <body>
   <button onclick="checkPlaying()">Check</button>
-  <canvas id="audio-chart" max-width="300" max-height="200px"></canvas>
+  <canvas id="feature-chart" max-width="300" max-height="200px"></canvas>
   <canvas id="beats-bars" width="1000px" max-width="1000px" max-height="40px"></canvas>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -50,7 +50,7 @@
       getAnalysis(track.data.item.id)
       getFeatures(track.data.item.id)
     }
-
+    var analysisChart;
     async function getAnalysis(id){
       var analysis = await axios.get('/track-analysis', {params: {id: id}})
       console.log('analysis', analysis)
@@ -79,16 +79,16 @@
       buildLines(ctx, d.tatums, 'orange', 10, 30)
     }
 
-    var audioChart;
+    var featureChart;
     async function getFeatures(id){
-      if(audioChart){
-        audioChart.destroy()
+      if(featureChart){
+        featureChart.destroy()
       }
       var features = await axios.get('/track-features', {params: {id: id}})
       console.log('features', features)
-      var ctx = document.getElementById('audio-chart').getContext('2d')
-      ctx.clearRect(0, 0, ctx.width, ctx.height);
-      audioChart = new Chart(ctx, {
+      var ctx = document.getElementById('feature-chart').getContext('2d')
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      featureChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: [

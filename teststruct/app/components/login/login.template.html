@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <h1 class="m-5" style="color:white">Login to Amplify</h1>
+  </div>
+</div>
+<div class="container float-left mw-100">
+  <div class="jumbotron">
+    <form class="form-signin" action="/loginUser" method="POST">
+      <h3 class="m-3"> Please enter your email and password.</h3>
+  	  <label for="inputEmail" class="sr-only">Email address</label>
+  	  <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
+  	  <label for="inputPassword" class="sr-only">Password</label>
+  	  <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+  	  <div class="checkbox mb-3">
+    		<label>
+    		  <input type="checkbox" value="remember-me"> Remember me |
+    		</label>
+  			<a href="">Forgot Password?</a>
+  	  </div>
+  	  <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+      <div class="row">
+        <h5>First Time User?</h5>
+        <a class="btn btn-sm btn-outline-dark" href="/register">Register</a>
+      </div>
+  	</form>
+  </div>
+</div>

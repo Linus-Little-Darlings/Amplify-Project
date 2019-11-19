@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Linus-Little-Darlings/Amplify-Project#readme",
   "dependencies": {
+    "angular": "1.7.x",
+    "angular-route": "^1.7.8",
     "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
