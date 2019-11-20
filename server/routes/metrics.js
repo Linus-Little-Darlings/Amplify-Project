@@ -38,10 +38,10 @@ module.exports = app => {
 	})
 
 
-app.get('/recommendations', function(req, res){  
+app.get('/recently-played', function(req, res){  
     console.log('q', req.cookies)
     var options = {
-      url: 'https://api.spotify.com/v1/recommendations',
+      url: '  https://api.spotify.com/v1/me/player/recently-played',
       headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
       json: true
     };
