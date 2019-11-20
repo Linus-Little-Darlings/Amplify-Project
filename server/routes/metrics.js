@@ -3,7 +3,7 @@ const request = require('request')
 
 
 module.exports = app => {
-  function getArtist(){
+  function getArtist(req){
     console.log('q', req.cookies)
     var options = {
       url: 'https://api.spotify.com/v1/me/top/artists',
@@ -20,7 +20,7 @@ module.exports = app => {
     });
 }
   app.get('/top-artists', function(req, res){
-    var body = getArtist();
+    var body = getArtist(req);
     res.send(body);
   })
   app.get('/top-tracks', function(req, res){
@@ -39,6 +39,7 @@ module.exports = app => {
       console.log('bod',body);
       res.send(body)
     });
+  })
   
   
 
