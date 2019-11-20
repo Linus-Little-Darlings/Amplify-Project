@@ -27,7 +27,10 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "mongoose": "^5.7.7",
+<<<<<<< HEAD
     "path": "^0.12.7",
+=======
+>>>>>>> parker-dev
     "querystring": "^0.2.0",
     "request": "^2.88.0",
     "spotify-web-api-node": "^4.0.0"
