@@ -67,7 +67,9 @@
 			var player,
 					paused = false;
 
-
+			//function play(){
+			//	console.log('outside play')
+			//}
 			player = {
 				playlist: playlist,
 
@@ -76,7 +78,10 @@
 				playing: false,
 	//not sure we'll need any of the album stuff since we're just pulling data from spotify
 				play: function(track, album) {
-					axios.put('https://api.spotify.com/v1/me/player/play');
+					console.log('play')
+					axios.put('https://api.spotify.com/v1/me/player/play').then(response => {
+						console.log(response)
+					});
 					player.playing = true;
 					paused = false;
 				},
