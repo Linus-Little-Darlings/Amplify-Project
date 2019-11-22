@@ -15,14 +15,13 @@ var generateRandomString = function(length) {
 module.exports = app => {
   const stateKey = 'spotify_auth_state';
 
-  app.get('/spotifyLogin', function(req, res) {
-    console.log('login called')
+  app.get('/login', function(req, res) {
+
     const state = generateRandomString(16);
     res.cookie(stateKey, state);
 
     // your application requests authorization
-
-    const scope = 'user-read-private user-read-email streaming user-library-read user-top-read user-read-currently-playing';
+    const scope = 'user-read-private user-read-email user-library-read user-top-read';
     console.log(process.env.REDIRECT_URI)
     res.redirect('https://accounts.spotify.com/authorize?' +
       querystring.stringify({
