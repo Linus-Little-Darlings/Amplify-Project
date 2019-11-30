@@ -12,39 +12,102 @@
     <body>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
       <script>
-      var scene = new THREE.Scene();
-      var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1,1000);
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1,1000);
 
-      var renderer = new THREE.WebGLRenderer();
-      renderer.setSize (window.innerWidth, window.innerHeight);
-      document.body.appendChild(renderer.domElement);
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize (window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-      var geometry = new THREE.SphereGeometry(9, 12, 12);
-      var material = new THREE.MeshBasicMaterial ({color: 0x0011ff});
-      var sphere = new THREE.Mesh(geometry, wireframe);
-      var wireframe = new THREE.WireframeGeometry( geometry );
+        var geometry = new THREE.SphereGeometry(9, 12, 12);
+        var material = new THREE.MeshBasicMaterial ({color: 0x0011ff});
 
-      var line = new THREE.LineSegments( wireframe );
-      line.material.depthTest = false;
-      //line.material.opacity = 0.25;
-      line.material.transparent = false;
 
-      scene.add( line );
+        // Sphere 1
+        var wireframe1 = new THREE.WireframeGeometry( geometry );
+        var sphere1 = new THREE.Mesh(geometry, wireframe1);
+        var line1 = new THREE.LineSegments( wireframe1 );
+        line1.material.depthTest = false;
+        line1.material.transparent = false;
 
-      camera.position.z= 35;
-      //camera.position.x= 10;
 
-      function render(){
-        requestAnimationFrame (render);
+        // Sphere 2
+        var wireframe2 = new THREE.WireframeGeometry( geometry );
+        var sphere2 = new THREE.Mesh(geometry, wireframe2);
+        var line2 = new THREE.LineSegments( wireframe2 );
+        line2.material.depthTest = false;
+        line2.material.transparent = false;
 
-        line.rotation.x += 0.01;
-      	line.rotation.y -= 0.01;
-        //line.rotation.z -= 0.01;
-        sphere.rotation.x += 0.02;
-      	sphere.rotation.y += 0.02;
-        renderer.render (scene, camera);
-      }
-      render();
+        // Sphere 3
+        var wireframe3= new THREE.WireframeGeometry( geometry );
+        var sphere3 = new THREE.Mesh(geometry, wireframe3);
+        var line3 = new THREE.LineSegments( wireframe3 );
+        line3.material.depthTest = false;
+        line3.material.transparent = false;
 
+
+
+        // Sphere 1 starting position
+        sphere1.position.z = -60;
+        line1.position.z = -60;
+        sphere1.position.x = -80;
+        line1.position.x = -80;
+        sphere1.position.y = 34;
+        line1.position.y = 34;
+
+        // Sphere 2 starting position
+        sphere2.position.z = -15;
+        line2.position.z = -15;
+        sphere2.position.x = 20;
+        line2.position.x = 20;
+        sphere2.position.y = -15;
+        line2.position.y = -15;
+
+        // Sphere 3 starting position
+        sphere3.position.z = -45;
+        line3.position.z = -45;
+        sphere3.position.x = 60;
+        line3.position.x = 60;
+        sphere3.position.y = 20;
+        line3.position.y = 20;
+
+
+
+        scene.add( sphere1, sphere2, sphere3 );
+        scene.add( line1, line2, line3);
+
+        var ambientLight = new THREE.AmbientLight(0x111111);
+        scene.add(ambientLight);
+
+        camera.position.z= 35;
+
+        function render(){
+          requestAnimationFrame (render);
+
+          line1.rotation.x += 0.01;
+        	line1.rotation.y -= 0.01;
+          sphere1.rotation.x += 0.02;
+        	sphere1.rotation.y += 0.02;
+
+          line2.rotation.x += 0.01;
+        	line2.rotation.y -= 0.01;
+          sphere2.rotation.x += 0.02;
+        	sphere2.rotation.y += 0.02;
+
+          line3.rotation.x += 0.01;
+        	line3.rotation.y -= 0.01;
+          sphere3.rotation.x += 0.02;
+        	sphere3.rotation.y += 0.02;
+
+          renderer.render (scene, camera);
+        }
+
+
+
+
+
+
+
+        render();
       </script>
 </html>
