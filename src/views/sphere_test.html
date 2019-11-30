@@ -12,12 +12,39 @@
     <body>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
       <script>
-        var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1,1000);
 
-        var renderer = new THREE.WebGLRenderer();
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        document.body.appendChild( renderer.domElement );
-        
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize (window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      var geometry = new THREE.SphereGeometry(9, 12, 12);
+      var material = new THREE.MeshBasicMaterial ({color: 0x0011ff});
+      var sphere = new THREE.Mesh(geometry, wireframe);
+      var wireframe = new THREE.WireframeGeometry( geometry );
+
+      var line = new THREE.LineSegments( wireframe );
+      line.material.depthTest = false;
+      //line.material.opacity = 0.25;
+      line.material.transparent = false;
+
+      scene.add( line );
+
+      camera.position.z= 35;
+      //camera.position.x= 10;
+
+      function render(){
+        requestAnimationFrame (render);
+
+        line.rotation.x += 0.01;
+      	line.rotation.y -= 0.01;
+        //line.rotation.z -= 0.01;
+        sphere.rotation.x += 0.02;
+      	sphere.rotation.y += 0.02;
+        renderer.render (scene, camera);
+      }
+      render();
+
       </script>
 </html>
