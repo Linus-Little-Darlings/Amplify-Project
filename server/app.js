@@ -72,6 +72,11 @@ app.get('/getSpotifyAuthToken', function(req, res){
 app.get('/shape_test', function(req, res){
   res.sendFile('views/sphere_test.html', {root: 'src'})
 })
+app.get('/swarm_test', function(req, res){
+  res.sendFile('views/audio_test.html', {root: 'src'})
+})
+
+
 
 spotifyLoginRouter(app)
 amplifyLoginRouter(app)

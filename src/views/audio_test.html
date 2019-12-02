@@ -11,18 +11,104 @@
 
     <body>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
+        <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       <script>
-        var sphereGeo = new THREE.SphereGeometry(10,20,20);
+        var WIDTH = window.innerWidth,
+        HEIGHT = window.innerHeight,
+        ASPECT = WIDTH / HEIGHT,
+        VIEW_ANGLE = 45, NEAR = 0.1, FAR = 10000;
 
-        var partMat = new THREE.ParticleSystemMaterial();
-        partMat.blending = THREE.AdditiveBlending;
-        partMat.transparent = true;
+        // window.onSpotifyWebPlaybackSDKReady = async () => {
+        //   const token = await axios.get('/getSpotifyAuthToken');
+        //   };
+        // console.log("Token" + token);
 
-        // create the particle system
-        var partSys = new THREE.ParticleSystem(sphereGeo, partMat);
-        partSys.name = 'cube';
-        partSys.sortParticles = true;
-        scene.add(partSys);
+
+        // fetch("https://api.spotify.com/v1/audio-analysis/6EJiVf7U0p1BBfs0qqeb1f", {
+        //   method: "GET",
+        //   headers: {
+        //     Authorization: `Bearer ${userAccessToken}`
+        //   }
+        // })
+        // .then(response => response.json())
+        // .then(({beats})) => {
+        //   beats.forEach((beat, index) => {
+        //     console.log(`Beat ${index} starts at ${beat.start}`);
+        //   })
+        // }
+
+        var container, renderer, camera, scene, sphere;
+
+        var directionalLight;
+
+        //div element that will hold renderer
+        container = document.createElement('div');
+        document.body.appendChild(container);
+
+        //renderer
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize(WIDTH, HEIGHT);
+        container.appendChild(renderer.domElement);
+
+
+
+        //camera
+        camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+        camera.position.z = 300;
+
+        var controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        //lights
+        renderer.gammaInput = true;
+        renderer.gammaOutput = true;
+
+        renderer.setClearColor(0x909090, 1.0);
+        directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        directionalLight.position.set(0, -1, 0);
+
+        scene = new THREE.Scene();
+        scene.add(camera);
+        scene.add(directionalLight);
+        //scene.add(sphere);
+
+        /**/
+        var distance = 70;
+        var geometry = new THREE.Geometry();
+
+        for (var i = 0; i < 10000; i++) {
+
+            var vertex = new THREE.Vector3();
+
+            var theta = THREE.Math.randFloatSpread(360);
+            var phi = THREE.Math.randFloatSpread(360);
+
+            vertex.x = distance * Math.sin(theta) * Math.cos(phi);
+            vertex.y = distance * Math.sin(theta) * Math.sin(phi);
+            vertex.z = distance * Math.cos(theta);
+
+            geometry.vertices.push(vertex);
+        }
+        geometry.vertices[0].position.x = 1;
+        var particles = new THREE.Points(geometry, new THREE.PointsMaterial({color: 0xffffff}));
+        particles.boundingSphere = 50;
+
+        //var particles = new THREE.Mesh(geometry, sphereMaterial);
+        scene.add(particles);
+        /**/
+
+        //we add the even listener function to the domElement
+        // renderer.domElement.addEventListener( 'mousedown', onMouseDown );
+
+
+        function animate() {
+            requestAnimationFrame(animate);
+            geometry.vertices.rotatation.x =  0.1;
+            renderer.render(scene, camera);
+
+        }
+
+        animate();
 
 
       </script>
