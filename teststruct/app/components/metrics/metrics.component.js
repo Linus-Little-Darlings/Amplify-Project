@@ -1,4 +1,4 @@
-angular.module('metrics', ['ngRoute']).component('metrics', {
+angular.module('metrics', []).component('metrics', {
 	templateUrl: 'app/components/metrics/metrics.template.html',
 	controller: function metricsController($http){
 		this.test = 'this is a test';

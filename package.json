@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/Linus-Little-Darlings/Amplify-Project#readme",
   "dependencies": {
-    "angular": "1.7.x",
+    "@uirouter/angularjs": "^1.0.23",
+    "angular": "^1.7.9",
     "angular-route": "^1.7.8",
     "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.4.3",
@@ -28,6 +29,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "mongoose": "^5.7.7",
+    "ng-dialog": "^1.4.0",
     "path": "^0.12.7",
     "querystring": "^0.2.0",
     "request": "^2.88.0",

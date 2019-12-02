@@ -7,15 +7,17 @@
   <div class="collapse navbar-collapse" id="navbarText">
 	<ul class="navbar-nav mr-auto">
 	 <li class="nav-item">
-		<a class="nav-link" href="#!home">Home</a>
+		<a class="nav-link" ui-sref="home">Home</a>
 	  </li>
 	  <li class="nav-item">
-		<a class="nav-link" href="#!metrics">Metrics <span class="sr-only">(current)</span></a>
+		<a class="nav-link" ui-sref="metrics">Metrics <span class="sr-only">(current)</span></a>
 	  </li>
 	</ul>
 	<div class="form-inline my-2 my-lg-0">
-    <a class="btn btn-outline-light my-2 my-sm-0" href="#!login" type="submit" role="button" id="in">Login</a>
-		<!-- <button class="btn btn-outline-light my-2 my-sm-0" type="submit" id="out">Logout</button> -->
+    <a class="btn btn-outline-light my-2 my-sm-0" ui-sref="baseModal.connect" role="button" >Connect Spotify</a>
+	</div>
+	<div class="form-inline my-2 my-lg-0">
+    <a class="btn btn-outline-light my-2 my-sm-0" ui-sref="login" role="button" id="in">Login</a>
 	</div>
   </div>
 </nav>

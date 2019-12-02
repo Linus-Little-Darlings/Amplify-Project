@@ -51,11 +51,12 @@ app.use(cors())
   }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-/*app.get('/home', function(req, res) {
+/*
+app.get('/home', function(req, res) {
   console.log(req.session.userId)
   res.sendFile('views/home.html', {root: 'src'})
 })
+
 app.get('/metrics', function(req, res){
   res.sendFile('views/metrics.html', {root: 'src'})
 })
@@ -63,6 +64,7 @@ app.get('/metrics', function(req, res){
 app.get('/apitest', function(req, res){
   res.sendFile('views/apitest.html', {root: 'src'})
 })
+/*
 app.get('/testdata', function(req, res){
   res.send({msg: 'from the server'})
 })
