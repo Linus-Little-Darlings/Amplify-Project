@@ -44,7 +44,7 @@
 			<div class="playlist">
 				<h1>Playlist</h1>
 				<nav>
-					<button class="control play" ng-click="player.play()" ng-hide="player.playing">Play</button>
+					<button onclick="player.play()">Play</button>
 					<button class="control pause" ng-click="player.pause()" ng-show="player.playing">Pause</button>
 					<button class="control prev" ng-click="player.previous()">Prev</button>
 					<button class="control next" onclick="player.next()">Next</button>
@@ -71,13 +71,9 @@
 			//	console.log('outside play')
 			//}
 			player = {
-				playlist: playlist,
-
-				current: current,
-
 				playing: false,
 	//not sure we'll need any of the album stuff since we're just pulling data from spotify
-				play: function(track, album) {
+				play: function() {
 					console.log('play')
 					axios.put('https://api.spotify.com/v1/me/player/play').then(response => {
 						console.log(response)
@@ -114,7 +110,8 @@
 					if(player.playing == false){
 						player.playing = true;
 					}
-			};
+			}
+		}
 		</script>
 </body>
 </html>
