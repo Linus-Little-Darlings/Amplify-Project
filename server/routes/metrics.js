@@ -12,7 +12,7 @@ module.exports = app => {
     return new Promise((resolve, reject) => {
       // use the access token to access the Spotify Web API
       request.get(options, function(error, response, body) {
-         console.log('artist err',error)
+         // console.log('artist err',error)
         // console.log('res',response.statusCode)
         // console.log('bod',body);
          resolve(body);
@@ -26,7 +26,6 @@ module.exports = app => {
   })
   app.get('/top-tracks', function(req, res){
     
-    console.log('q', req.cookies)
     var options = {
       url: 'https://api.spotify.com/v1/me/top/tracks',
       headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
@@ -41,7 +40,37 @@ module.exports = app => {
       res.send(body)
     });
   })
-  
+  app.get('/top-artists50', function(req, res){
+      var options = {
+      url: 'https://api.spotify.com/v1/me/top/artists?limit=50',
+      headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
+      json: true
+    };
+
+    // use the access token to access the Spotify Web API
+    request.get(options, function(error, response, body) {
+      // console.log('err',error)
+      // console.log('res',response.statusCode)
+      // console.log('bod',body);
+      res.send(body)
+    });
+  })
+app.get('/top-tracks50', function(req, res){
+    
+    var options = {
+      url: 'https://api.spotify.com/v1/me/top/tracks?limit=50',
+      headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
+      json: true
+    };
+
+    // use the access token to access the Spotify Web API
+    request.get(options, function(error, response, body) {
+      // console.log('err',error)
+      // console.log('res',response.statusCode)
+      // console.log('bod',body);
+      res.send(body)
+    });
+  })  
   
 
 app.get('/playback', function(req, res){  
@@ -113,8 +142,8 @@ app.get('/recently-played', function(req, res){
 
     // use the access token to access the Spotify Web API
     request.get(options, function(error, response, body) {
-       console.log('recent err',error)
-       console.log('res',response.statusCode)
+       // console.log('recent err',error)
+       // console.log('res',response.statusCode)
       // console.log('bod',body);
       res.send(body)
     });

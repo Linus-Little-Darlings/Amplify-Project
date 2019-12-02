@@ -113,11 +113,11 @@
   <script>
     var tracks = document.getElementById('top-tracks')
     axios.get('/top-tracks').then(response => {
-      console.log(response);
       trackHtml = ''
       for(var i = 1; i <6;i++)
       {
-        trackHtml += '<li class=\"list-group-item\">'+ response.data.items[i-1].name + " by " + response.data.items[i-1].artists[0].name;
+        trackHtml += '<li class=\"list-group-item\">'+  '<img src="' + response.data.items[i-1].album.images[2].url + '" alt="album art" width="32" height="32">' +"  " +
+        response.data.items[i-1].name + " by " + response.data.items[i-1].artists[0].name;
         // artistHtml += ' Genre: ' + artist.genres[0];
         trackHtml += '</li>';
       }
