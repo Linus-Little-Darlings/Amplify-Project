@@ -1,4 +1,3 @@
-
 const express = require('express'); // Express web server framework
 const request = require('request'); // "Request" library
 const cors = require('cors');
@@ -33,7 +32,7 @@ if(process.env.HTTPS){
 
 var db = mongoose.connection;
 db.once('open',function(){
-	console.log('connected to db')
+  console.log('connected to db')
 })
 
 if(process.env.HTTPS || true){
@@ -67,9 +66,9 @@ if(process.env.HTTPS || true){
 app.use(cors())
   .use(cookieParser())
   .use(session({
-   	secret:'p38u3m4ucp98ut3m9u0c9348umc0',
-   	resave: true,
-   	saveUninitialized: false
+    secret:'p38u3m4ucp98ut3m9u0c9348umc0',
+    resave: true,
+    saveUninitialized: false
   }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
