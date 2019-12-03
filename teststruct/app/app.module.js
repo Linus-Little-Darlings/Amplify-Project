@@ -6,8 +6,6 @@ var amplifyApp = angular.module('amplifyApp', [
   'login',
   'register',
   'ampHeader',
-  'refreshToken',
-  'ngDialog',
   'baseModal',
-  'connectModal'
+  'connectModal',
 ]);
