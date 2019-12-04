@@ -169,16 +169,23 @@
             /////////////////////////////////////////////////////////////////////////////////////////
             // This is where dynamic animation is coming into play
 
+            // orbit values are looking best in the range between 0.01 and 0.2
+            // Tempo normalization assuming ranges of [60, 220] for targeted bpm and [0.01, 0.2] for orbit speed:
+            // Orbit Speed = 0.1 + (tempo - 60) * ((0.2 - 0.01)/(220 - 60))
 
             // Creating KeyframeTracks
             // Starting with orbit speed.
             var times = [];
             var orbit_values = [];
             var color_values = [];
+            var orbit_test;
             var i;
             for (i=0; i < sections.length; i++) {
               times[i] = sections[i].start;
-              orbit_values[i] = (sections[i].tempo/20);
+              console.log(orbit_test);
+              orbit_test = 0.1 + (sections[i].tempo - 60)*0.0011875;
+              orbit_values[i] = orbit_test;
+              //console.log(orbit_values[i]);
               // Right now, I'm just creating a random set of values for color. As far as I can tell, they need to be in the [0,1] range of rgb - ie, if we're thinking in typical terms of
               // color, 1 would be 255 and 0 would be 0. The color of each segement will be the additions of three values into the array - the constructor will divide the color ray by
               // the number of time segments I pass it, and each section of that division should have one value between 0 and 1
