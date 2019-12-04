@@ -5,7 +5,7 @@
 
       <style>
         body {margin: 0;}
-        canvas {width: 100%; height: 100%;};
+        canvas {width: 70%; height: 70%;}
       </style>
 
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -81,11 +81,6 @@
 
           var electrons = [], numElectrons = 50; // more electrons = slower updating
 
-          // function populateScene() {
-          //
-          //   //geo.verticesNeedUpdate = true;
-          // }
-
 
           function updateElectrons(){
             var obj = null;
@@ -97,7 +92,7 @@
 
 
           function init() {
-            document.body.style.backgroundColor = "black";
+            document.body.style.backgroundColor = "white";
 
             renderer = new THREE.WebGLRenderer({
               antialias: true,
@@ -112,6 +107,7 @@
             document.body.style.padding = "0";
 
             scene = new THREE.Scene();
+            scene.background = new THREE.Color( 0x000000 );
 
             camera = new THREE.PerspectiveCamera(FOV, WIDTH / HEIGHT, NEAR, FAR);
             camera.position.z = 100;
@@ -158,7 +154,7 @@
 
               plane.projectPoint(point, electron.position);
 
-              electron.position.setLength(30);
+              electron.position.setLength(10);
               electron.position.applyAxisAngle(electron.angle, 6.28);
 
 
@@ -173,18 +169,26 @@
             // Tempo normalization assuming ranges of [60, 220] for targeted bpm and [0.01, 0.2] for orbit speed:
             // Orbit Speed = 0.1 + (tempo - 60) * ((0.2 - 0.01)/(220 - 60))
 
+            //Distance normaliztion assuming ranges of [-28, -6] for db loudness and [10, 48] for particle distance from center:
+            // Distance = 10 + ((-loudness) - 6)*((48-10)/(28-6))
+
             // Creating KeyframeTracks
             // Starting with orbit speed.
             var times = [];
             var orbit_values = [];
+            var distance_values = [];
             var color_values = [];
-            var orbit_test;
+            var orbit_norm;
             var i;
             for (i=0; i < sections.length; i++) {
               times[i] = sections[i].start;
-              console.log(orbit_test);
-              orbit_test = 0.1 + (sections[i].tempo - 60)*0.0011875;
-              orbit_values[i] = orbit_test;
+
+
+              orbit_norm = 0.1 + (sections[i].tempo - 60)*0.0011875;
+              orbit_values[i] = orbit_norm;
+            }
+
+            for (i=0; i < (sections.length*3); i+=3){
               //console.log(orbit_values[i]);
               // Right now, I'm just creating a random set of values for color. As far as I can tell, they need to be in the [0,1] range of rgb - ie, if we're thinking in typical terms of
               // color, 1 would be 255 and 0 would be 0. The color of each segement will be the additions of three values into the array - the constructor will divide the color ray by
@@ -194,9 +198,11 @@
               //      |  red  | greeen |  blue  |
               // So for each particle, you'll add three values to the array.
               color_values[i] = Math.random();    //Red
-              color_values[i] = Math.random();    //Green
-              color_values[i] = Math.random();    //Blue
+              color_values[i+1] = Math.random();    //Green
+              color_values[i+2] = Math.random();    //Blue
             }
+
+
 
 
             /////////////////////////////////////////////////////////////////////////////////////////
@@ -207,6 +213,8 @@
 
             // I believe the times of all tracks would need to be the same - maybe not, but shouldn't be an issue regardless
             var orbitSpeedKF = new THREE.NumberKeyframeTrack('.orbitSpeed', times, orbit_values);
+
+            //var distanceKF = new THREE.VectorKeyframeTrack('.position.scale', times, distance_values);
 
             // Below is a KeyframeTrack - it matches time segments with animation values, basically representing one component of an animation like changing color or changing speed.
             // In the values array (named color_values below) you'll define what you want the animation's value to look like during that time interval.
@@ -240,28 +248,11 @@
               clipAction.play();
             }
 
-            //Use option root option of mixer.clipAction to operate on all electrons in the array
-            // var clipAction = null;
-            // for(i = 0; i < numElectrons; ++i){
-            //     anim_electron = electrons[i]
-            //     clipAction = mixer.clipAction(clip, anim_electron);
-            //     clipAction.play();
-            // }
-
-
-
-
 
             resize();
             window.onresize = resize;
 
-            //populateScene();
-
-
             clock = new THREE.Clock()
-
-
-
           }
 
 
@@ -289,8 +280,8 @@
 
 
           function resize() {
-            WIDTH = window.innerWidth;
-            HEIGHT = window.innerHeight;
+            WIDTH = (window.innerWidth)*0.7;
+            HEIGHT = (window.innerHeight)*0.7;
             if (renderer && camera && controls) {
               renderer.setSize(WIDTH, HEIGHT);
               camera.aspect = WIDTH / HEIGHT;
