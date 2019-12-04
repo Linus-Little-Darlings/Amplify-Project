@@ -79,7 +79,7 @@
             NEAR = 1,
             FAR = 1000;
 
-          var electrons = [], numElectrons = 1; // more electrons = slower updating
+          var electrons = [], numElectrons = 50; // more electrons = slower updating
 
           // function populateScene() {
           //
@@ -178,7 +178,7 @@
             var i;
             for (i=0; i < sections.length; i++) {
               times[i] = sections[i].start;
-              orbit_values[i] = (sections[i].tempo/10);
+              orbit_values[i] = (sections[i].tempo/20);
               // Right now, I'm just creating a random set of values for color. As far as I can tell, they need to be in the [0,1] range of rgb - ie, if we're thinking in typical terms of
               // color, 1 would be 255 and 0 would be 0. The color of each segement will be the additions of three values into the array - the constructor will divide the color ray by
               // the number of time segments I pass it, and each section of that division should have one value between 0 and 1
@@ -225,9 +225,13 @@
             // The Mixer is basically a player for an animation on a specific object - in this case, we're animating the single electron I have in the scene
             mixer = new THREE.AnimationMixer(anim_electron);
 
-            // This creates an AnimationClip and
-            var clipAction = mixer.clipAction(clip, anim_electron);
-            clipAction.play();
+            // This creates an AnimationClip and plays it for all electrons
+            var particle = null;
+            for(i = 0; i < numElectrons; i++ ){
+              particle = electrons[i];
+              var clipAction = mixer.clipAction(clip, particle);
+              clipAction.play();
+            }
 
             //Use option root option of mixer.clipAction to operate on all electrons in the array
             // var clipAction = null;
