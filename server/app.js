@@ -35,7 +35,18 @@ db.once('open',function(){
   console.log('connected to db')
 })
 
-if(process.env.HTTPS || true){
+
+app.use(cors())
+  .use(cookieParser())
+  .use(session({
+    secret:'p38u3m4ucp98ut3m9u0c9348umc0',
+    resave: true,
+    saveUninitialized: false
+  }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+if(process.env.HTTPS && false){
   app.use(express.static('./teststruct'))
 }else{
   app.use(express.static('./src'))
@@ -63,15 +74,6 @@ if(process.env.HTTPS || true){
   })
 }
 
-app.use(cors())
-  .use(cookieParser())
-  .use(session({
-    secret:'p38u3m4ucp98ut3m9u0c9348umc0',
-    resave: true,
-    saveUninitialized: false
-  }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/getSpotifyAuthToken', function(req, res){
   res.send(req.cookies.access_token)
