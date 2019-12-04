@@ -1,0 +1,22 @@
+/* Place the navbar at the bottom of the page, and make it stick */
+.bottom_navbar {
+  background-color: #685677;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+/* Style the links inside the navigation bar */
+.bottom_navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+body {
+  background: rgb(20,0,36);
+  background: linear-gradient(90deg, rgba(20,0,36,1) 15%, rgba(121,9,51,1) 100%);
+}

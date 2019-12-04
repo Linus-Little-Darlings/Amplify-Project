@@ -35,8 +35,36 @@ var db = mongoose.connection;
 db.once('open',function(){
   console.log('connected to db')
 })
-app.use(express.static('./src'))
-  .use(cors())
+
+if(process.env.HTTPS || true){
+  app.use(express.static('./teststruct'))
+}else{
+  app.use(express.static('./src'))
+  app.get('/home', function(req, res) {
+    console.log(req.session.userId)
+    res.sendFile('views/home.html', {root: 'src'})
+  })
+
+  app.get('/metrics', function(req, res){
+    res.sendFile('views/metrics.html', {root: 'src'})
+  })
+
+  app.get('/apitest', function(req, res){
+    res.sendFile('views/apitest.html', {root: 'src'})
+  })
+
+  app.get('/testdata', function(req, res){
+    res.send({msg: 'from the server'})
+  })
+  app.get('/amplifyLogin', function(req, res){
+    res.sendFile('views/login.html', {root: 'src'})
+  })
+  app.get('/register', function(req, res){
+    res.sendFile('views/register.html', {root: 'src'})
+  })
+}
+
+app.use(cors())
   .use(cookieParser())
   .use(session({
     secret:'p38u3m4ucp98ut3m9u0c9348umc0',
@@ -46,6 +74,7 @@ app.use(express.static('./src'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+<<<<<<< HEAD
 app.get('/home', function(req, res) {
   console.log(req.session.userId)
   res.sendFile('views/home.html', {root: 'src'})
@@ -66,6 +95,8 @@ app.get('/login', function(req, res){
 app.get('/register', function(req, res){
   res.sendFile('views/register.html', {root: 'src'})
 })
+=======
+>>>>>>> bd1dc8adde3a538c720b51e04b952a1d8d021e45
 app.get('/getSpotifyAuthToken', function(req, res){
   res.send(req.cookies.access_token)
 })
@@ -75,6 +106,7 @@ app.get('/shape_test', function(req, res){
 app.get('/swarm_test', function(req, res){
   res.sendFile('views/audio_test.html', {root: 'src'})
 })
+
 
 
 
