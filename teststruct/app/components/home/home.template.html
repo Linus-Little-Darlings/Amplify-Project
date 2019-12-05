@@ -13,7 +13,7 @@
         <div class="card-body">
           <h5 class="card-title">Your Top 5 Songs This Week</h5>
           <ol class="list-group list-group-flush">
-            <li class="list-group-item" ng-repeat="track in $ctrl.trackInfos" ng-mouseenter="options=true" ng-mouseleave="options=false" ng-click="$ctrl.playTrack(track.id)">
+            <li class="list-group-item" ng-repeat="track in $ctrl.trackInfos" ng-mouseenter="options=true" ng-mouseleave="options=false" ng-click="$ctrl.player.playTrack(track.id)">
               <span style="display:flex">
                 <div class="icon">
                     <div ng-hide="options"><img src="assets/img/play-circle-outline.png"></div>
