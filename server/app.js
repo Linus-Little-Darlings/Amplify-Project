@@ -52,6 +52,10 @@ if(process.env.HTTPS || true){
     res.sendFile('views/apitest.html', {root: 'src'})
   })
 
+  app.get('/colortest', function(req, res){
+    res.sendFile('views/colortest.html', {root: 'src'})
+  })
+
   app.get('/testdata', function(req, res){
     res.send({msg: 'from the server'})
   })
@@ -89,6 +93,11 @@ app.get('/threetest', function(req, res){
 app.get('/apitest', function(req, res){
   res.sendFile('views/apitest.html', {root: 'src'})
 })
+
+app.get('/colortest', function(req, res){
+  res.sendFile('views/colortest.html', {root: 'src'})
+})
+
 app.get('/testdata', function(req, res){
   res.send({msg: 'from the server'})
 })
