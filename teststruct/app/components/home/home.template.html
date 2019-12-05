@@ -1,0 +1,35 @@
+
+<div class="container float-left mw-100">
+  <div class="row">
+    <h1 class="m-5" style="color:white">Welcome, User.</h1>
+  </div>
+</div>
+
+<div class="container float-left mw-100">
+  <div class="row">
+
+    <div class="col-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Your Top 5 Songs This Week</h5>
+          <ol class="list-group list-group-flush">
+            <li class="list-group-item" ng-repeat="track in $ctrl.trackInfos" ng-mouseenter="options=true" ng-mouseleave="options=false" ng-click="$ctrl.player.playTrack(track.id)">
+              <span style="display:flex">
+                <div class="icon">
+                    <div ng-hide="options"><img src="assets/img/play-circle-outline.png"></div>
+                    <div ng-show="options"><img src="assets/img/play-circle.png"></div>
+                </div>
+                {{track.name}} by {{track.artists[0].name}}
+              </span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-9">
+      <div class="card" style="height:400px;" visualizer></div>
+    </div>
+
+  </div>
+</div>

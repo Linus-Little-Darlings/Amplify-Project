@@ -92,12 +92,33 @@
           </div>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Your Top 5 Songs This Week</h5>
+            <ol class="list-group list-group-flush" id="recs">
+              <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
+              <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
+              <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
+              <li class="list-group-item">Vienna - Ben Platt</li>
+              <li class="list-group-item">Disaster - D.A. Wallach</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+>>>>>>> dfa3e42f066f47ff71479c25d7fc7f42e63abe93
     </div>
 	</div>
 	<script>
 		var tracks = document.getElementById('top-tracks')
 		var artists = document.getElementById('top-artists')
+<<<<<<< HEAD
 
+=======
+    var recs = document.getElementById('recs')
+>>>>>>> dfa3e42f066f47ff71479c25d7fc7f42e63abe93
 		axios.get('/top-artists').then(response => {
 			var count = 1;
 			artistHtml = ''
@@ -121,6 +142,20 @@
 				count++;
 			})
 			tracks.innerHTML = trackHtml;
+<<<<<<< HEAD
 		})
+=======
+
+		})
+    axios.get('/recommendations').then(response => {
+      console.log(response)
+      var recHtml = '';
+      var count = 1;
+      response.data.items.forEach(track => {
+        
+      })
+      recs.innerHTML = recHtml;
+    })
+>>>>>>> dfa3e42f066f47ff71479c25d7fc7f42e63abe93
 	</script>
 </body>
