@@ -22,7 +22,7 @@ module.exports = app => {
 
     // your application requests authorization
 
-    const scope = 'user-read-private user-read-email streaming user-library-read user-top-read user-read-currently-playing';
+    const scope = 'user-read-private user-read-email streaming user-library-read user-top-read user-read-currently-playing user-modify-playback-state';
     console.log(process.env.REDIRECT_URI)
     res.redirect('https://accounts.spotify.com/authorize?' +
       querystring.stringify({

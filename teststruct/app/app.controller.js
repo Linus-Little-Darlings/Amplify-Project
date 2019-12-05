@@ -1,6 +1,6 @@
 angular.module('amplifyApp').controller('appController', function($scope, $http){
 	console.log('controler going')
-	window.onSpotifyWebPlaybackSDKReady = async () => {
+    window.onSpotifyWebPlaybackSDKReady = async () => {
     console.log('player going')
     const token = await $http.get('/getSpotifyAuthToken');
     console.log(token)
@@ -31,4 +31,6 @@ angular.module('amplifyApp').controller('appController', function($scope, $http)
     // Connect to the player!
     player.connect();
   };
+
+  
 })

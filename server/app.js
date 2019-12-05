@@ -18,6 +18,7 @@ const refreshRouter = require('./routes/refresh')
 const metricsRouter = require('./routes/metrics')
 const amplifyLoginRouter = require('./routes/amplifyLogin')
 const trackAnalysisRouter = require('./routes/trackAnalysis')
+const playerRouter = require('./routes/player')
 var stateKey = 'spotify_auth_state';
 
 var app = express();
@@ -46,7 +47,7 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-if(process.env.HTTPS && false){
+if(process.env.HTTPS){
   app.use(express.static('./teststruct'))
 }else{
   app.use(express.static('./src'))
@@ -86,6 +87,7 @@ callbackRouter(app)
 refreshRouter(app)
 metricsRouter(app)
 trackAnalysisRouter(app)
+playerRouter(app)
 console.log('Listening on 3000');
 console.log(process.env.REDIRECT_URI)
 if(process.env.HTTPS){
