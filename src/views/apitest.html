@@ -60,9 +60,15 @@
   <button onclick="player.pause"><img src="resources/img/pause.png"></button>
   <button onclick="player.prev"><img src="resources/img/Prev.png"></button>
   <button onclick="player.next"><img src="resources/img/Next.png"></button>
+	<input type="range" min="0" max="100" value="100" class="slider" id="volRange">
 </div>
 <!--functions for buttons-->
 <script>
+
+	//slider attempt
+	$("#volRange").on("mouseup", function(){
+		console.log("volume selected", this.value)
+	})
 
   var player,
       paused = false;
@@ -106,6 +112,9 @@
         player.playing = true;
       }
   }
+		volume: function(volPercent) {
+			axios.put('https://api.spotify.com/v1/me/player/volume?volume_percent=' + volPercent);
+		}
 }
 </script>
 
