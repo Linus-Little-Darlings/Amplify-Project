@@ -61,7 +61,7 @@ module.exports = app => {
               access_token: body.access_token,
               refresh_token: body.refresh_token
             }));*/
-          res.redirect('/home')
+          res.redirect('/#!/home')
         } else {
           res.redirect('/#' +
             querystring.stringify({
