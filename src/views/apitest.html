@@ -38,77 +38,74 @@
 		})
 	</script>
 
-<!-- Start of player html and js; needs to be adapted to angular and given css -->
-	<body ng-controller="ampCtrl">
-		<div id="container">
-			<div class="playlist">
-				<h1>Playlist</h1>
-				<nav>
-					<button onclick="player.play()"><img src="resources/img/play.png"></button>
-					<button onclick="player.pause"><img src="resources/img/pause.png"></button>
-					<button onclick="player.prev"><img src="resources/img/Prev.png"></button>
-					<button onclick="player.next"><img src="Next"></button>
-				</nav>
 
-			</div>
-			<!-- Adjust; See if this is viable for the spotify display/queue stuff
-			<section class="library">
-				<h1>Music Library</h1>
-				<ul class="albums">
-					<li class="album current" ng-repeat="album in albums">
-						<button class="queue add" ng-click="player.playlist.add(album)"></button>
-						<span class="album-title">{{album.title}}</span>
-						<span class="artist-name">{{album.artist}}</span>
-					</li>
-				</ul>
-			</section> -->
-		</div>
-		<script>
-			var player,
-					paused = false;
 
-			player = {
-				playing: false,
-	//not sure we'll need any of the album stuff since we're just pulling data from spotify
-				play: function() {
-					console.log('play')
-					axios.put('https://api.spotify.com/v1/me/player/play').then(response => {
-						console.log(response)
-					});
-					player.playing = true;
-					paused = false;
-				},
+<!--styling for player buttons -->
+	<style>
+	.buttonAlign{
+	  text-align: center;
+	}
+	.buttonPlay:hover{
+	  box-shadow: 0 4px 8px 0
+	    rgba(0,0,0,00.2), 0 10px 20px 0
+	    rgba(0,0,0,0.19)
 
-				//will I need to include something in the javacript to change the image of the play button to a pause here?
-				//Probably...
-				pause: function() {
-					if (player.playing) {
-						axios.put('https://api.spotify.com/v1/me/player/pause');
-						player.playing = false;
-						paused = true;
-					}
-				},
+	}
+	</style>
+<!-- player html-->
+<div class="buttonAlign">
+  <button class = "buttonPlay" onclick="player.play()"><img src="resources/img/play.png"></button>
+  <button onclick="player.pause"><img src="resources/img/pause.png"></button>
+  <button onclick="player.prev"><img src="resources/img/Prev.png"></button>
+  <button onclick="player.next"><img src="resources/img/Next.png"></button>
+</div>
+<!--functions for buttons-->
+<script>
 
-				//don't think this function will be needed
-				reset: function() {
-					axios.put('https://api.spotify.com/v1/me/player/pause');
-					player.playing = false;
-				},
+  var player,
+      paused = false;
 
-				next: function() {
-					axios.post('https://api.spotify.com/v1/me/player/next');
-					if(player.playing == false){
-						player.playing = true;
-					}
-				},
+  player = {
+    playing: false,
+    play: function() {
+      console.log('play')
+      axios.put('https://api.spotify.com/v1/me/player/play').then(response => {
+        console.log(response)
+      });
+      player.playing = true;
+      paused = false;
+    },
 
-				previous: function() {
-					axios.post('https://api.spotify.com/v1/me/player/previous');
-					if(player.playing == false){
-						player.playing = true;
-					}
-			}
-		}
-		</script>
+    //will need to include something in the javacript to change the image of the play button to a pause here
+    pause: function() {
+      if (player.playing) {
+        axios.put('https://api.spotify.com/v1/me/player/pause');
+        player.playing = false;
+        paused = true;
+      }
+    },
+
+    //don't think this function will be needed
+    reset: function() {
+      axios.put('https://api.spotify.com/v1/me/player/pause');
+      player.playing = false;
+    },
+
+    next: function() {
+      axios.post('https://api.spotify.com/v1/me/player/next');
+      if(player.playing == false){
+        player.playing = true;
+      }
+    },
+
+    previous: function() {
+      axios.post('https://api.spotify.com/v1/me/player/previous');
+      if(player.playing == false){
+        player.playing = true;
+      }
+  }
+}
+</script>
+
 </body>
 </html>
