@@ -96,7 +96,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Your Top 5 Songs This Week</h5>
-            <ol class="list-group list-group-flush" id="recs">
+            <ol class="list-group list-group-flush" id="recent">
               <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
               <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
               <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
@@ -111,8 +111,12 @@
 	<script>
 		var tracks = document.getElementById('top-tracks')
 		var artists = document.getElementById('top-artists')
-    var recs = document.getElementById('recs')
+<<<<<<< HEAD
+    var recs = document.getElementById('recent')
+=======
+>>>>>>> parker-dev
 		axios.get('/top-artists').then(response => {
+      console.log(response);
 			var count = 1;
 			artistHtml = ''
 			response.data.items.forEach(artist => {
@@ -137,12 +141,12 @@
 			tracks.innerHTML = trackHtml;
 
 		})
-    axios.get('/recommendations').then(response => {
+    axios.get('/recently-played').then(response => {
+      console.log("recent")
       console.log(response)
       var recHtml = '';
       var count = 1;
       response.data.items.forEach(track => {
-        
       })
       recs.innerHTML = recHtml;
     })
