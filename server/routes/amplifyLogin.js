@@ -5,8 +5,8 @@ var User = require('../models/user')
 module.exports = app => {
 	app.post('/registerUser', (req, res, next) => {
 		console.log(req.body)
-		var e = req.body.emailAddress,
-	      p = req.body.passwordFirst;
+		var e = req.body.email,
+	      p = req.body.password;
 	  var u = e.slice(0, e.indexOf('@'))
 		if (p !== req.body.passwordConfirm) {
 	    var err = new Error('Passwords do not match.');
@@ -29,7 +29,7 @@ module.exports = app => {
 				}else{
 					req.session.userId = user._id
 					console.log(user)
-					return res.redirect('/home')
+					return res.send(user._id)
 				}
 			})
 		}
@@ -49,7 +49,7 @@ module.exports = app => {
 				return next(error)
 			}else{
 				req.session.userId = user._id
-				return res.redirect('/home')
+				return res.send(user._id)
 			}
 		})
 	})

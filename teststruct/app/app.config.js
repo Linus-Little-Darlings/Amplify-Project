@@ -20,22 +20,34 @@ angular.module('amplifyApp')
 	var homeState = {
 		name: 'home',
 		url: '/home',
-		template: '<home/>'
+		template: '<home/>',
+		data: {
+			requireLogin: true
+		}
 	}
 	var metricsState = {
 		name: 'metrics',
 		url: '/metrics',
-		template: '<metrics/>'
+		template: '<metrics/>',
+		data: {
+			requireLogin: true
+		}
 	}
 	var loginState = {
 		name: 'login',
 		url: '/login',
-		template: '<login/>'
+		template: '<login/>',
+		data: {
+			requireLogin: false
+		}
 	}
 	var registerState = {
 		name: 'register',
 		url: '/register',
-		template: '<register/>'
+		template: '<register/>',
+		data: {
+			requireLogin: false
+		}
 	}
 	$stateProvider.state(homeState)
 	$stateProvider.state(metricsState)
@@ -47,7 +59,10 @@ angular.module('amplifyApp')
 				template: '<base-modal/>'
 			}
 		},
-		abstract: true
+		abstract: true,
+		data: {
+			requireLogin: true
+		}
 	})
 	$stateProvider.state('baseModal.connect', {
 		views:{

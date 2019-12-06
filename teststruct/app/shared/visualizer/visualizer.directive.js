@@ -106,10 +106,7 @@ angular.module('amplifyApp').directive('visualizer', ['$http', function($http){
           var light = new THREE.PointLight(0xffffff, 1, Infinity);
           camera.add(light);
           //scene.fog = new THREE.Fog(0x03544e, 0.001);
-          stats = new Stats();
-          stats.domElement.style.position = 'absolute';
-          stats.domElement.style.top = '0';
-          document.body.appendChild(stats.domElement);
+          
 
           ///////////////////////////////////////////////////////////////////////////////////////////////
           // Populate the scene
@@ -292,7 +289,6 @@ angular.module('amplifyApp').directive('visualizer', ['$http', function($http){
           updateElectrons();
           render();
           controls.update();
-          stats.update();
           renderer.render(scene, camera);
         }
         function helper_sectionAnimation(volume, tempo){
