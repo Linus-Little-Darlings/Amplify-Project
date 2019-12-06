@@ -5,7 +5,7 @@
 
       <style>
         body {margin: 0;}
-        canvas {width: 70%; height: 70%;}
+        canvas {width: 100%; height: 100%;};
       </style>
 
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -81,6 +81,11 @@
 
           var electrons = [], numElectrons = 50; // more electrons = slower updating
 
+          // function populateScene() {
+          //
+          //   //geo.verticesNeedUpdate = true;
+          // }
+
 
           function updateElectrons(){
             var obj = null;
@@ -107,7 +112,6 @@
             document.body.style.padding = "0";
 
             scene = new THREE.Scene();
-            scene.background = new THREE.Color( 0x000000 );
 
             camera = new THREE.PerspectiveCamera(FOV, WIDTH / HEIGHT, NEAR, FAR);
             camera.position.z = 100;
@@ -154,8 +158,12 @@
 
               plane.projectPoint(point, electron.position);
 
-              electron.position.setLength(10);
+              electron.position.setLength(30);
               electron.position.applyAxisAngle(electron.angle, 6.28);
+
+              // var temp = new THREE.Vector3();
+              // temp.set( 10, 10, 10 );
+              // electron.scale = temp;
 
 
               scene.add(electron);
@@ -178,11 +186,24 @@
             var orbit_values = [];
             var distance_values = [];
             var color_values = [];
+
             var orbit_norm;
+
+            var distance_mag;
+            var vector_prox;
+
             var i;
             for (i=0; i < sections.length; i++) {
               times[i] = sections[i].start;
 
+              distance_mag = 10 + ((-sections[i].loudness - 6)*1.7272);
+              // console.log('distance', distance_mag);
+              vector_prox = new THREE.Vector3(Math.random(), Math.random(), Math.random()).normalize();
+              // console.log('vector_prox', vector_prox);
+              vector_prox.setLength(distance_mag);
+              distance_values[i] = vector_prox;
+              // console.log('distance val', distance_values[i]);
+              // console.log('length', distance_values[i].length());
 
               orbit_norm = 0.1 + (sections[i].tempo - 60)*0.0011875;
               orbit_values[i] = orbit_norm;
@@ -214,7 +235,7 @@
             // I believe the times of all tracks would need to be the same - maybe not, but shouldn't be an issue regardless
             var orbitSpeedKF = new THREE.NumberKeyframeTrack('.orbitSpeed', times, orbit_values);
 
-            //var distanceKF = new THREE.VectorKeyframeTrack('.position.scale', times, distance_values);
+            //var distanceKF = new THREE.VectorKeyframeTrack('.position', times, distance_values);
 
             // Below is a KeyframeTrack - it matches time segments with animation values, basically representing one component of an animation like changing color or changing speed.
             // In the values array (named color_values below) you'll define what you want the animation's value to look like during that time interval.
@@ -249,10 +270,18 @@
             }
 
 
+
+
             resize();
             window.onresize = resize;
 
+            //populateScene();
+
+
             clock = new THREE.Clock()
+
+
+
           }
 
 
@@ -280,8 +309,8 @@
 
 
           function resize() {
-            WIDTH = (window.innerWidth)*0.7;
-            HEIGHT = (window.innerHeight)*0.7;
+            WIDTH = window.innerWidth;
+            HEIGHT = window.innerHeight;
             if (renderer && camera && controls) {
               renderer.setSize(WIDTH, HEIGHT);
               camera.aspect = WIDTH / HEIGHT;

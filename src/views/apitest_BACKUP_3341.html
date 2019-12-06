@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<<<<<<< HEAD
+	<head>
+	  <title>Spotify Web Playback SDK Quick Start Tutorial</title>
+	 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	</head>
+	<body>
+	  <button onclick="checkPlaying()">Check</button>
+	  <canvas id="audio-chart" max-width="300" max-height="200px"></canvas>
+	  <canvas id="beats-bars" width="1000px" max-width="1000px" max-height="40px"></canvas>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+	  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+	  <script>
+	    window.onSpotifyWebPlaybackSDKReady = async () => {
+	      const token = await axios.get('/getSpotifyAuthToken');
+	      console.log(token)
+	      const player = new Spotify.Player({
+	        name: 'Web Playback SDK Quick Start Player',
+	        getOAuthToken: cb => { cb(token.data); }
+	      });
+
+	      // Error handling
+	      player.addListener('initialization_error', ({ message }) => { console.error(message); });
+	      player.addListener('authentication_error', ({ message }) => { console.error(message); });
+	      player.addListener('account_error', ({ message }) => { console.error(message); });
+	      player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+	      // Playback status updates
+	      player.addListener('player_state_changed', state => { console.log(state); });
+=======
+<head>
+  <title>Spotify Web Playback SDK Quick Start Tutorial</title>
+ 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <button onclick="checkPlaying()">Check</button>
+  <canvas id="feature-chart" max-width="300" max-height="200px"></canvas>
+  <canvas id="beats-bars" width="1000px" max-width="1000px" max-height="40px"></canvas>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+    window.onSpotifyWebPlaybackSDKReady = async () => {
+      const token = await axios.get('/getSpotifyAuthToken');
+      console.log(token)
+      const player = new Spotify.Player({
+        name: 'Web Playback SDK Quick Start Player',
+        getOAuthToken: cb => { cb(token.data); }
+      });
+>>>>>>> bd1dc8adde3a538c720b51e04b952a1d8d021e45
+
+	      // Ready
+	      player.addListener('ready', ({ device_id }) => {
+	        console.log('Ready with Device ID', device_id);
+	      });
+
+	      // Not Ready
+	      player.addListener('not_ready', ({ device_id }) => {
+	        console.log('Device ID has gone offline', device_id);
+	      });
+
+	      // Connect to the player!
+	      player.connect();
+	    };
+	    async function checkPlaying(){
+	      console.log('check')
+	      var track = await axios.get('/currently-playing')
+	      console.log('track', track)
+	      getAnalysis(track.data.item.id)
+	      getFeatures(track.data.item.id)
+	    }
+
+	    async function getAnalysis(id){
+	      var analysis = await axios.get('/track-analysis', {params: {id: id}})
+	      console.log('analysis', analysis)
+	      var ctx = document.getElementById('beats-bars').getContext('2d')
+	      var d = analysis.data
+
+<<<<<<< HEAD
+	      var buildLines = (context, metric, color, height, heightOffset) => {
+	        var scale = context.canvas.width/(metric[metric.length-1].start - metric[0].start)
+	        var pos = 0;
+	        var toggleColor = false;
+	        metric.forEach(b => {
+	          if(toggleColor){
+	            context.fillStyle = 'white'
+	          }else{
+	            context.fillStyle = color
+	          }
+	          var w = b.duration*scale
+	          context.fillRect(pos, heightOffset, w, height)
+	          pos += w
+	          toggleColor = !toggleColor
+	        })
+	      }
+	      buildLines(ctx, d.sections, 'green', 10, 0)
+	      buildLines(ctx, d.bars, 'blue', 10, 10)
+	      buildLines(ctx, d.beats, 'red', 10, 20)
+	      buildLines(ctx, d.tatums, 'orange', 10, 30)
+	    }
+
+	    var audioChart;
+	    async function getFeatures(id){
+	      if(audioChart){
+	        audioChart.destroy()
+	      }
+	      var features = await axios.get('/track-features', {params: {id: id}})
+	      console.log('features', features)
+	      var ctx = document.getElementById('audio-chart').getContext('2d')
+	      ctx.clearRect(0, 0, ctx.width, ctx.height);
+	      audioChart = new Chart(ctx, {
+	        type: 'bar',
+	        data: {
+	            labels: [
+	              'acousticness',
+	              'danceability',
+	              'energy',
+	              'liveness',
+	              'speechiness',
+	              'valence'
+	            ],
+	            datasets: [{
+	                label: '# of Votes',
+	                data: [
+	                  features.data.acousticness,
+	                  features.data.danceability,
+	                  features.data.energy,
+	                  features.data.liveness,
+	                  features.data.speechiness,
+	                  features.data.valence
+	                ],
+	                backgroundColor: [
+	                    'rgba(255, 99, 132, 0.2)',
+	                    'rgba(54, 162, 235, 0.2)',
+	                    'rgba(255, 206, 86, 0.2)',
+	                    'rgba(75, 192, 192, 0.2)',
+	                    'rgba(153, 102, 255, 0.2)',
+	                    'rgba(255, 159, 64, 0.2)'
+	                ],
+	                borderColor: [
+	                    'rgba(255, 99, 132, 1)',
+	                    'rgba(54, 162, 235, 1)',
+	                    'rgba(255, 206, 86, 1)',
+	                    'rgba(75, 192, 192, 1)',
+	                    'rgba(153, 102, 255, 1)',
+	                    'rgba(255, 159, 64, 1)'
+	                ],
+	                borderWidth: 1
+	            }]
+	        },
+	        options: {
+	            scales: {
+	                yAxes: [{
+	                    ticks: {
+	                        beginAtZero: true
+	                    }
+	                }]
+	            }
+	        }
+	      })
+	    }
+
+	  </script>
+
+	</body>
+</html>
+=======
+      // Connect to the player!
+      player.connect();
+    };
+    async function checkPlaying(){
+      console.log('check')
+      var track = await axios.get('/currently-playing')
+      console.log('track', track)
+      getAnalysis(track.data.item.id)
+      getFeatures(track.data.item.id)
+    }
+    var analysisChart;
+    async function getAnalysis(id){
+      var analysis = await axios.get('/track-analysis', {params: {id: id}})
+      console.log('analysis', analysis)
+      var ctx = document.getElementById('beats-bars').getContext('2d')
+      var d = analysis.data
+      
+      var buildLines = (context, metric, color, height, heightOffset) => {
+        var scale = context.canvas.width/(metric[metric.length-1].start - metric[0].start)
+        var pos = 0;
+        var toggleColor = false;
+        metric.forEach(b => {
+          if(toggleColor){
+            context.fillStyle = 'white'
+          }else{
+            context.fillStyle = color
+          }
+          var w = b.duration*scale
+          context.fillRect(pos, heightOffset, w, height)
+          pos += w
+          toggleColor = !toggleColor
+        })
+      }
+      buildLines(ctx, d.sections, 'green', 10, 0)
+      buildLines(ctx, d.bars, 'blue', 10, 10)
+      buildLines(ctx, d.beats, 'red', 10, 20)
+      buildLines(ctx, d.tatums, 'orange', 10, 30)
+    }
+
+    var featureChart;
+    async function getFeatures(id){
+      if(featureChart){
+        featureChart.destroy()
+      }
+      var features = await axios.get('/track-features', {params: {id: id}})
+      console.log('features', features)
+      var ctx = document.getElementById('feature-chart').getContext('2d')
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      featureChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [
+              'acousticness', 
+              'danceability', 
+              'energy', 
+              'liveness', 
+              'speechiness', 
+              'valence'
+            ],
+            datasets: [{
+                label: '# of Votes',
+                data: [
+                  features.data.acousticness, 
+                  features.data.danceability, 
+                  features.data.energy, 
+                  features.data.liveness, 
+                  features.data.speechiness,
+                  features.data.valence
+                ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+      })
+    }
+    
+  </script>
+>>>>>>> c67e20adf232aa3170c5aceda192d9c926313998
+</body>
+</html>
+>>>>>>> bd1dc8adde3a538c720b51e04b952a1d8d021e45
