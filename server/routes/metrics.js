@@ -109,24 +109,24 @@ app.get('/playback', function(req, res){
     });
   })
 
-app.get('/featured-playlists', function(req, res){
+// app.get('/featured-playlists', function(req, res){
     
-    console.log('q', req.cookies)
-    var options = {
-      url: 'https://api.spotify.com/v1/browse/featured-playlists?country=US&limit=10&offset=5',
-      headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
-      json: true
-    };
->>>>>>> parker-dev
+//     console.log('q', req.cookies)
+//     var options = {
+//       url: 'https://api.spotify.com/v1/browse/featured-playlists?country=US&limit=10&offset=5',
+//       headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
+//       json: true
+//     };
+// >>>>>>> parker-dev
 
-    // use the access token to access the Spotify Web API
-    request.get(options, function(error, response, body) {
-      // console.log('err',error)
-      // console.log('res',response.statusCode)
-      // console.log('bod',body);
-      res.send(body)
-    });
-  })
+//     // use the access token to access the Spotify Web API
+//     request.get(options, function(error, response, body) {
+//       // console.log('err',error)
+//       // console.log('res',response.statusCode)
+//       // console.log('bod',body);
+//       res.send(body)
+//     });
+//   })
 // app.get('/recomendations', function(req, res){
 //     var art = getArtist();
 //     art = art.data.items;
@@ -166,3 +166,4 @@ app.get('/recently-played', function(req, res){
       res.send(body)
     });
   })
+}

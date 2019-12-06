@@ -46,7 +46,7 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-if(process.env.HTTPS){
+if(process.env.HTTPS || true){
   app.use(express.static('./teststruct'))
 }else{
   app.use(express.static('./src'))

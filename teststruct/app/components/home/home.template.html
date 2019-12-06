@@ -14,6 +14,7 @@
           <h5 class="card-title">Your Top 5 Songs This Week</h5>
           <ol class="list-group list-group-flush">
             <li class="list-group-item" ng-repeat="track in $ctrl.trackInfos" ng-mouseenter="options=true" ng-mouseleave="options=false" ng-click="$ctrl.player.playTrack(track.id)">
+              <img ng-src="{{track.album.images[2].url}}" alt="album art" width="32" height="32">
               <span style="display:flex">
                 <div class="icon">
                     <div ng-hide="options"><img src="assets/img/play-circle-outline.png"></div>
