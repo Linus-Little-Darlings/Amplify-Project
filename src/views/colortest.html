@@ -162,7 +162,7 @@
             var geo = new THREE.SphereBufferGeometry(1, 16, 16);
             var mat = new THREE.MeshPhongMaterial({color:"blue"});
             var electron = null, plane = new THREE.Plane(), point = new THREE.Vector3();
-            geo = new THREE.SphereBufferGeometry(1, 16, 16);
+            geo = new THREE.SphereBufferGeometry(5, 16, 16);
             mat = new THREE.MeshPhongMaterial({color:"white"});
             for(var i = 0; i < numElectrons; ++i){
               electron = new THREE.Mesh(geo, mat);
@@ -174,7 +174,7 @@
               plane.normal.copy(electron.angle);
               point.set(Math.random(), Math.random(), Math.random());
               plane.projectPoint(point, electron.position);
-              electron.position.setLength(10);
+              electron.position.setLength(40);
               electron.position.applyAxisAngle(electron.angle, 6.28);
               scene.add(electron);
             }
@@ -192,8 +192,10 @@
             var distance_values = [];
             var color_values = [];
             var background_values = [];
+            var opacity_values = [];
             var orbit_norm;
             var i;
+            var op = 1;
             setObjectColorFamily();
             setBGColorFamily();
             var r = backColor[0];
@@ -202,10 +204,31 @@
             var ro = objColor[0];
             var go = objColor[1];
             var bo = objColor[2];
+            function bumpUp()
+            {
+              op = op + (10*i)/10;
+              opacity_values[i] = op;
+            }
+            function bumpDown()
+            {
+              op = op - (5*i)/10;
+              if (op < 0)
+              {
+                op = 0.05;
+              }
+              opacity_values[i] = op;
+            }
             for (i=0; i < sections.length; i++) {
               times[i] = sections[i].start;
               orbit_norm = 0.1 + (sections[i].tempo - 60)*0.0011875;
               orbit_values[i] = orbit_norm;
+              if(op <= .05)
+              {
+                bumpUp();
+              }
+              else {
+                bumpDown();
+              }
             }
             for (i=0; i < (sections.length*3); i+=3){
               //console.log(orbit_values[i]);
@@ -290,11 +313,12 @@
             // of the object you want to change. Then you will pass in an array of the times (already grabbed from the track_analysis above) and your array of color values.
             var colorKF = new THREE.ColorKeyframeTrack('.material.color', times, color_values);
             var backKF = new THREE.ColorKeyframeTrack('.background', times, background_values);
+            var opacityKF = new THREE.NumberKeyframeTrack('.material.opacity', times, opacity_values);
             // Animation Clip creation
             // The AnimationClip takes multiple KeyframeTracks and basically adds them to one object to create and a complex animation.
             // Passing negative value forces AnimationClip to calcuate its duration based on the KeyframeTracks passed.
             // Any KeyframeTrack you want included in the animation should be listed in the KeyframeTrack array in the third argument.
-            var clip = new THREE.AnimationClip('Action', -1, [orbitSpeedKF, colorKF]);
+            var clip = new THREE.AnimationClip('Action', -1, [orbitSpeedKF, colorKF, opacityKF]);
             var clipBack = new THREE.AnimationClip('Action2', -1, [backKF]);
             // Animation Mixer creation
             // Currently just animating one electron - due to the way animation works, I can't just use a for loop and apply it to a bunch of objects. Currently working on a fix for that.
@@ -306,6 +330,7 @@
             var particle = null;
             for(i = 0; i < numElectrons; i++ ){
               particle = electrons[i];
+              particle.material.transparent = true;
               var clipBackA = mixer.clipAction(clipBack, scene);
               var clipAction = mixer.clipAction(clip, particle);
               clipAction.play();
