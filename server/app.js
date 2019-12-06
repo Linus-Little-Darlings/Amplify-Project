@@ -1,4 +1,4 @@
- 
+
 const express = require('express'); // Express web server framework
 const request = require('request'); // "Request" library
 const cors = require('cors');
@@ -47,7 +47,8 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-if(process.env.HTTPS || true){
+
+if(process.env.HTTPS){
   app.use(express.static('./teststruct'))
 }else{
   app.use(express.static('./src'))

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +52,7 @@
       console.log('analysis', analysis)
       var ctx = document.getElementById('beats-bars').getContext('2d')
       var d = analysis.data
-      
+
       var buildLines = (context, metric, color, height, heightOffset) => {
         var scale = context.canvas.width/(metric[metric.length-1].start - metric[0].start)
         var pos = 0;
@@ -86,20 +87,20 @@
         type: 'bar',
         data: {
             labels: [
-              'acousticness', 
-              'danceability', 
-              'energy', 
-              'liveness', 
-              'speechiness', 
+              'acousticness',
+              'danceability',
+              'energy',
+              'liveness',
+              'speechiness',
               'valence'
             ],
             datasets: [{
                 label: '# of Votes',
                 data: [
-                  features.data.acousticness, 
-                  features.data.danceability, 
-                  features.data.energy, 
-                  features.data.liveness, 
+                  features.data.acousticness,
+                  features.data.danceability,
+                  features.data.energy,
+                  features.data.liveness,
                   features.data.speechiness,
                   features.data.valence
                 ],
@@ -133,7 +134,7 @@
         }
       })
     }
-    
+
   </script>
 </body>
 </html>

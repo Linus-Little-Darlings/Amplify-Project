@@ -13,11 +13,15 @@
         <div class="card-body">
           <h5 class="card-title">Your Top 5 Songs This Week</h5>
           <ol class="list-group list-group-flush">
-            <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
-            <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
-            <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
-            <li class="list-group-item">Vienna - Ben Platt</li>
-            <li class="list-group-item">Disaster - D.A. Wallach</li>
+            <li class="list-group-item" ng-repeat="track in $ctrl.trackInfos" ng-mouseenter="options=true" ng-mouseleave="options=false" ng-click="$ctrl.player.playTrack(track.id)">
+              <span style="display:flex">
+                <div class="icon">
+                    <div ng-hide="options"><img src="assets/img/play-circle-outline.png"></div>
+                    <div ng-show="options"><img src="assets/img/play-circle.png"></div>
+                </div>
+                {{track.name}} by {{track.artists[0].name}}
+              </span>
+            </li>
           </ol>
         </div>
       </div>
