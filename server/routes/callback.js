@@ -51,10 +51,7 @@ module.exports = app => {
           request.get(options, function(error, response, body) {
             console.log(body);
           });
-<<<<<<< HEAD
-=======
         
->>>>>>> parker-dev
           // we can also pass the token to the browser to make requests from there
           /*res.redirect('/#' +
             querystring.stringify({
