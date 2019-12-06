@@ -55,6 +55,7 @@
       async function getAnalysis(id){
           var analysis = await axios.get('/track-analysis', {params: {id: id}})
           var features = await axios.get('/track-features', {params: {id: id}})
+
           console.log('features', features)
           var songFeatures = features.data;
           console.log('analysis', analysis)
@@ -67,7 +68,7 @@
             FOV = 60,
             NEAR = 1,
             FAR = 1000;
-          var electrons = [], numElectrons = 50; // more electrons = slower updating
+          var electrons = [], numElectrons = 100; // more electrons = slower updating
           function updateElectrons(){
             var obj = null;
             for(var i = 0; i < numElectrons; ++i){
@@ -303,10 +304,18 @@
 
               console.log(r + " " + g + " " + b + " VS:" + ro + " " + go + " " + bo)
 
-              scale += (songFeatures.tempo - 10*i)/200
-              if(scale > 1.5)
+              scale += (songFeatures.tempo - 10*i)/1000
+              if(scale > 1.2)
               {
-                  scale = scale - (songFeatures.tempo - 10*i)/50
+                  scale = scale - (songFeatures.tempo - 5*i)/50
+              }
+              if(scale < .1)
+              {
+                scale += i/100;
+              }
+              if(scale < 0 && scale > -.2)
+              {
+                scale = scale - .3;
               }
               z_values[i] = scale;
               z_values[i+1] = scale;
