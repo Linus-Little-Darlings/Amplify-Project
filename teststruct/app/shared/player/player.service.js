@@ -44,13 +44,29 @@ angular.module('amplifyApp').service('playerService', function($http){
 	}
 
 	this.playTrack = async (id) => {
-    var options = {
-    	headers: { 'Authorization': 'Bearer ' + this.token},
+    if(!this.token){
+	    this.token = (await $http.get('/getSpotifyAuthToken')).data;
     }
     $http.put('https://api.spotify.com/v1/me/player/play', {uris: ['spotify:track:'+id]}, {headers: { 'Authorization': 'Bearer ' + this.token}})
+    .catch(async error => {
+    	console.log('playTrack error', error)
+    	if(error.data.error.reason == 'NO_ACTIVE_DEVICE'){
+    		await this.setActiveDevice(this.device_id)
+    		this.playTrack(id)
+    	}
+    })
   }
-  this.setActiveDevice = (device_id) => {
-  	$http.put('https://api.spotify.com/v1/me/player', {device_ids: [device_id]}, {headers: {'Authorization': 'Bearer ' + this.token}})
+  this.setActiveDevice = async (device_id) => {
+  	console.log('setting active', device_id)
+  	if(!this.token){
+	    this.token = (await $http.get('/getSpotifyAuthToken')).data;
+  	}
+  	return new Promise((resolve, reject) => {
+  		$http.put('https://api.spotify.com/v1/me/player', {device_ids: [device_id]}, {headers: {'Authorization': 'Bearer ' + this.token}})
+  		.then(res => {
+  			resolve(res)
+  		})
+  	})
   }
   this.init()
 })

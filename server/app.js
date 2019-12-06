@@ -79,6 +79,22 @@ app.get('/getSpotifyAuthToken', function(req, res){
   res.send(req.cookies.access_token)
 })
 
+app.get('/userProfile', function(req, res){
+  var options = {
+    url: 'https://api.spotify.com/v1/me',
+    headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
+    json: true
+  };
+
+  // use the access token to access the Spotify Web API
+  request.get(options, function(error, response, body) {
+    console.log('err',error)
+    console.log('res',response.statusCode)
+    console.log('bod',body);
+    res.send(body)
+  });
+})
+
 
 spotifyLoginRouter(app)
 amplifyLoginRouter(app)
