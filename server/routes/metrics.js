@@ -39,6 +39,24 @@ module.exports = app => {
       // console.log('bod',body);
       res.send(body)
     });
+	})
+
+
+app.get('/recently-played', function(req, res){  
+    console.log('q', req.cookies)
+    var options = {
+      url: '  https://api.spotify.com/v1/me/player/recently-played',
+      headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
+      json: true
+    };
+
+    // use the access token to access the Spotify Web API
+    request.get(options, function(error, response, body) {
+      console.log('err',error)
+      console.log('res',response.statusCode)
+      console.log('bod',body);
+      res.send(body)
+    });
   })
   app.get('/top-artists50', function(req, res){
       var options = {
@@ -99,6 +117,7 @@ app.get('/featured-playlists', function(req, res){
       headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
       json: true
     };
+>>>>>>> parker-dev
 
     // use the access token to access the Spotify Web API
     request.get(options, function(error, response, body) {
@@ -139,7 +158,6 @@ app.get('/recently-played', function(req, res){
       headers: { 'Authorization': 'Bearer ' + req.cookies.access_token },
       json: true
     };
-
     // use the access token to access the Spotify Web API
     request.get(options, function(error, response, body) {
        // console.log('recent err',error)
@@ -148,4 +166,3 @@ app.get('/recently-played', function(req, res){
       res.send(body)
     });
   })
-}
