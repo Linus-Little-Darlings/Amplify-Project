@@ -18,10 +18,12 @@
   <script src="app/shared/player/player.service.js"></script>
   <script src="assets/lib/angular/ngDialog.js"></script>
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script src="app/shared/player/player.component.js"></script>
 
   <link rel="stylesheet" href="assets/css/ngDialog.css">
   <link rel="stylesheet" href="assets/css/ngDialog-theme-default.css">
- 
+  <link rel="stylesheet" href="assets/css/player.css">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -34,5 +36,6 @@
 	<amp-header></amp-header>
 	<ui-view></ui-view>
 	<div ui-view="modal" autoscroll="false"></div>
+  <player></player>
 </body>
 </html>

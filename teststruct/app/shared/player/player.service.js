@@ -2,7 +2,8 @@ angular.module('amplifyApp').service('playerService', function($http){
 	this.token = '';
 	this.device_id = '';
 	this.ready = false;
-	
+	this.volume = .5;
+
 	this.init = () => {
 		window.onSpotifyWebPlaybackSDKReady = async () => {
 	    console.log('player going')
@@ -52,5 +53,27 @@ angular.module('amplifyApp').service('playerService', function($http){
   this.setActiveDevice = (device_id) => {
   	$http.put('https://api.spotify.com/v1/me/player', {device_ids: [device_id]}, {headers: {'Authorization': 'Bearer ' + this.token}})
   }
+
+	this.play = () => {
+		$http.put('https://api.spotify.com/v1/me/player/play', {}, {headers: { 'Authorization': 'Bearer ' + this.token}})
+	}
+
+	this.pause = () => {
+		$http.put('https://api.spotify.com/v1/me/player/pause', {}, {headers: { 'Authorization': 'Bearer ' + this.token}})
+	}
+
+	this.next = () => {
+		$http.post('https://api.spotify.com/v1/me/player/next', {}, {headers: { 'Authorization': 'Bearer ' + this.token}})
+	}
+
+	this.previous = () => {
+		$http.post('https://api.spotify.com/v1/me/player/previous', {}, {headers: { 'Authorization': 'Bearer ' + this.token}})
+	}
+
+	//incomplete. parameters/updating with change from volume slider not set yet
+	this.volume = () => {
+		$http.put('https://api.spotify.com/v1/me/player/volume?volume_percent=', {volume_percent: random}, {headers: { 'Authorization': 'Bearer ' + this.token}})
+	}
+
   this.init()
 })

@@ -1,0 +1,15 @@
+<nav class="navbar fixed-bottom navbar-dark bg-dark">
+  <!--<div class="buttonAlign">-->
+    <img class = "imgShadow" src="assets/img/previous.png" width="30" height="30" ng-click="$ctrl.player.prev()">
+    <img class = "imgShadow" src="assets/img/play-circle-outline.png" width="30" height="30" ng-click="$ctrl.player.play()">
+    <img class = "imgShadow" src="assets/img/pause.png" width="30" height="30" ng-click="$ctrl.player.pause()">
+    <img class = "imgShadow" src="assets/img/next.png" width="30" height="30" ng-click="$ctrl.player.next()">
+  	<input type="range" min="0" max="100" value="100" class="slider" id="volRange">
+  <!--</div>-->
+</nav>
+<!--
+  To Do For player
+
+redo center alignment
+fix button background
+connect audio slider to function

@@ -1,0 +1,14 @@
+.buttonAlign{
+  text-align: center;
+}
+.buttonPlay:hover{
+  box-shadow: 0 4px 8px 0
+    rgba(0,0,0,00.2), 0 10px 20px 0
+    rgba(0,0,0,0.19)
+
+}
+.imgShadow:hover{
+  -moz-box-shadow: 1px 1px 5px #999;
+  -webkit-box-shadow: 1px 1px 5px #999;
+  box-shadow: 1px 1px 5px #999;
+}
