@@ -5,6 +5,7 @@ var amplifyApp = angular.module('amplifyApp', [
   'login',
   'register',
   'ampHeader',
+  'player',
   'baseModal',
   'connectModal',
 ]);

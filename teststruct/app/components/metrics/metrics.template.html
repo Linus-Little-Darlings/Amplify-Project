@@ -1,26 +1,139 @@
-<div class="container float-left mw-100">
+
+  <div class="container float-left mw-100">
+    <div class="row">
+      <div class="col-4">
+        <div class="card m-4">
+          <div class="card-body">
+            <h5 class="card-title">Your Top 5 Songs This Week</h5>
+            <ol class="list-group list-group-flush" id="top-tracks">
+              <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
+              <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
+              <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
+              <li class="list-group-item">Vienna - Ben Platt</li>
+              <li class="list-group-item">Disaster - D.A. Wallach</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card m-4">
+          <div class="card-body">
+            <h5 class="card-title">Your Top 5 Artists This Week</h5>
+            <ol class="list-group list-group-flush" id="top-artists">
+              <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
+              <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
+              <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
+              <li class="list-group-item">Vienna - Ben Platt</li>
+              <li class="list-group-item">Disaster - D.A. Wallach</li>
+            </ol>
+          </div>
+        </div>
+    </div>
+        <div class="col-4">
+        <div class="card m-4">
+          <div class="card-body">
+            <h5 class="card-title">Most Recently</h5>
+            <ol class="list-group list-group-flush" id="recently-played">
+              <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
+              <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
+              <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
+              <li class="list-group-item">Vienna - Ben Platt</li>
+              <li class="list-group-item">Disaster - D.A. Wallach</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      </div>
   <div class="row">
-
-    <div class="col-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Your Top 10 Songs</h5>
-          <ol class="list-group list-group-flush" id="top-tracks">
-            <li ng-repeat="track in $ctrl.topTracks">{{ track.name }}</li>
-          </ol>
+      
+    <!-- <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Average Popularity</h5>
+            <ol class="list-group list-group-flush" id="popularity-avg">
+              <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
+              <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
+              <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
+              <li class="list-group-item">Vienna - Ben Platt</li>
+              <li class="list-group-item">Disaster - D.A. Wallach</li>
+            </ol>
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="row">
+    <div class="col-4">
+        <div class="card m-4">
+          <div class="card-body">
+            <h5 class="card-title">Track Popularity</h5>
+            <ol class="list-group list-group-flush" id="popularity">
+              <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
+              <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
+              <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
+              <li class="list-group-item">Vienna - Ben Platt</li>
+              <li class="list-group-item">Disaster - D.A. Wallach</li>
+            </ol>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Your Top 10 Artists</h5>
-          <ol class="list-group list-group-flush" id="top-artists">
-            <li ng-repeat="artist in $ctrl.topArtists">{{ artist.name }}</li>
-
-          </ol>
+      <div class="col-4">
+        <div class="card m-4">
+          <div class="card-body">
+            <h5 class="card-title">Explicit or Not?</h5>
+            <ol class="list-group list-group-flush" id="expl">
+              <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
+              <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
+              <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
+              <li class="list-group-item">Vienna - Ben Platt</li>
+              <li class="list-group-item">Disaster - D.A. Wallach</li>
+            </ol>
+          </div>
         </div>
       </div>
-    </div>
+      <div class="col-4">
+        <div class="card m-4">
+          <div class="card-body">
+            <h5 class="card-title">Popularity by Artist</h5>
+            <ol class="list-group list-group-flush" id="ArtPop">
+              <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
+              <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
+              <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
+              <li class="list-group-item">Vienna - Ben Platt</li>
+              <li class="list-group-item">Disaster - D.A. Wallach</li>
+            </ol>
+          </div>
+        </div>
+      </div>
   </div>
+  <div class="row">
+      
+      <div class="col-4">
+        <div class="card m-4">
+          <div class="card-body">
+            <h5 class="card-title">Your Top Song Lengths</h5>
+            <ol class="list-group list-group-flush" id="length">
+              <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
+              <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
+              <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
+              <li class="list-group-item">Vienna - Ben Platt</li>
+              <li class="list-group-item">Disaster - D.A. Wallach</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card m-4">
+          <div class="card-body">
+            <h5 class="card-title">Genres</h5>
+            <ol class="list-group list-group-flush" id="Genres">
+              <li class="list-group-item">Where the Money Flow - Peter Cat Recording Co.</li>
+              <li class="list-group-item">Televsion/So Far So Good - Rex Orange County</li>
+              <li class="list-group-item">Hallelujah, I Love Her So - Ray Charles</li>
+              <li class="list-group-item">Vienna - Ben Platt</li>
+              <li class="list-group-item">Disaster - D.A. Wallach</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>

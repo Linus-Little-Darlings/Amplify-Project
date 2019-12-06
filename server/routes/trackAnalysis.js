@@ -39,7 +39,7 @@ module.exports = app => {
 		request.get(options, function(error, response, body){
 			console.log('err',error)
 			console.log('res',response.statusCode)
-			console.log('bod',body)
+			console.log('currently playing',body)
 			res.send(body)
 		})
 	})
