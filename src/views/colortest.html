@@ -193,9 +193,11 @@
             var color_values = [];
             var background_values = [];
             var opacity_values = [];
+            var z_values = [];
             var orbit_norm;
             var i;
             var op = 1;
+            var scale = 1;
             setObjectColorFamily();
             setBGColorFamily();
             var r = backColor[0];
@@ -300,6 +302,16 @@
               background_values[i+2] = b
 
               console.log(r + " " + g + " " + b + " VS:" + ro + " " + go + " " + bo)
+
+              scale += (songFeatures.tempo - 10*i)/200
+              if(scale > 1.5)
+              {
+                  scale = scale - (songFeatures.tempo - 10*i)/50
+              }
+              z_values[i] = scale;
+              z_values[i+1] = scale;
+              z_values[i+2] = scale;
+              console.log("scale: " + scale)
             }
             /////////////////////////////////////////////////////////////////////////////////////////
             // console.log('times', times);
@@ -314,11 +326,14 @@
             var colorKF = new THREE.ColorKeyframeTrack('.material.color', times, color_values);
             var backKF = new THREE.ColorKeyframeTrack('.background', times, background_values);
             var opacityKF = new THREE.NumberKeyframeTrack('.material.opacity', times, opacity_values);
+            var zKF = new THREE.NumberKeyframeTrack('.scale', times, z_values);
+            //var xKF = new THREE.NumberKeyframeTrack('position', times, z_values);
+            //var yKF = new THREE.NumberKeyframeTrack('.position', times, z_values);
             // Animation Clip creation
             // The AnimationClip takes multiple KeyframeTracks and basically adds them to one object to create and a complex animation.
             // Passing negative value forces AnimationClip to calcuate its duration based on the KeyframeTracks passed.
             // Any KeyframeTrack you want included in the animation should be listed in the KeyframeTrack array in the third argument.
-            var clip = new THREE.AnimationClip('Action', -1, [orbitSpeedKF, colorKF, opacityKF]);
+            var clip = new THREE.AnimationClip('Action', -1, [orbitSpeedKF, colorKF, opacityKF, zKF]);
             var clipBack = new THREE.AnimationClip('Action2', -1, [backKF]);
             // Animation Mixer creation
             // Currently just animating one electron - due to the way animation works, I can't just use a for loop and apply it to a bunch of objects. Currently working on a fix for that.
@@ -331,6 +346,9 @@
             for(i = 0; i < numElectrons; i++ ){
               particle = electrons[i];
               particle.material.transparent = true;
+              //particle.position.y = i/2;
+              //particle.position.x = i;
+              //particle.position.z = -i/4;
               var clipBackA = mixer.clipAction(clipBack, scene);
               var clipAction = mixer.clipAction(clip, particle);
               clipAction.play();
@@ -341,12 +359,12 @@
             clock = new THREE.Clock()
           }
           function animate() {
-            requestAnimationFrame(animate);
             updateElectrons();
             render();
             controls.update();
             stats.update();
             renderer.render(scene, camera);
+            requestAnimationFrame(animate);
           }
           function helper_sectionAnimation(volume, tempo){
             var particle = null;
