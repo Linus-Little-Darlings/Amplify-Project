@@ -6,7 +6,6 @@ angular.module('amplifyApp').service('playerService', function($http){
 
 	this.init = () => {
 		window.onSpotifyWebPlaybackSDKReady = async () => {
-	    console.log('player going')
 	    this.token = (await $http.get('/getSpotifyAuthToken')).data;
 	    console.log('auth token', this.token)
 	    const player = new Spotify.Player({
@@ -45,28 +44,56 @@ angular.module('amplifyApp').service('playerService', function($http){
 	}
 
 	this.playTrack = async (id) => {
+    await this.setActiveDevice(this.device_id)
+
+    if(!this.token){
+			this.token = (await $http.get('/getSpotifyAuthToken')).data
+		}
     var options = {
     	headers: { 'Authorization': 'Bearer ' + this.token},
     }
     $http.put('https://api.spotify.com/v1/me/player/play', {uris: ['spotify:track:'+id]}, {headers: { 'Authorization': 'Bearer ' + this.token}})
   }
-  this.setActiveDevice = (device_id) => {
-  	$http.put('https://api.spotify.com/v1/me/player', {device_ids: [device_id]}, {headers: {'Authorization': 'Bearer ' + this.token}})
+  this.setActiveDevice = async (device_id) => {
+  	if(!this.token){
+			this.token = (await $http.get('/getSpotifyAuthToken')).data
+		}
+  	return $http.put('https://api.spotify.com/v1/me/player', {device_ids: [device_id]}, {headers: {'Authorization': 'Bearer ' + this.token}})
   }
 
-	this.play = () => {
+	this.play = async () => {
+		    await this.setActiveDevice(this.device_id)
+
+		if(!this.token){
+			this.token = (await $http.get('/getSpotifyAuthToken')).data
+		}
 		$http.put('https://api.spotify.com/v1/me/player/play', {}, {headers: { 'Authorization': 'Bearer ' + this.token}})
 	}
 
-	this.pause = () => {
+	this.pause = async () => {
+		    await this.setActiveDevice(this.device_id)
+
+		if(!this.token){
+			this.token = (await $http.get('/getSpotifyAuthToken')).data
+		}
 		$http.put('https://api.spotify.com/v1/me/player/pause', {}, {headers: { 'Authorization': 'Bearer ' + this.token}})
 	}
 
-	this.next = () => {
+	this.next = async () => {
+		    await this.setActiveDevice(this.device_id)
+
+		if(!this.token){
+			this.token = (await $http.get('/getSpotifyAuthToken')).data
+		}
 		$http.post('https://api.spotify.com/v1/me/player/next', {}, {headers: { 'Authorization': 'Bearer ' + this.token}})
 	}
 
-	this.previous = () => {
+	this.previous = async () => {
+		    await this.setActiveDevice(this.device_id)
+
+		if(!this.token){
+			this.token = (await $http.get('/getSpotifyAuthToken')).data
+		}
 		$http.post('https://api.spotify.com/v1/me/player/previous', {}, {headers: { 'Authorization': 'Bearer ' + this.token}})
 	}
 
